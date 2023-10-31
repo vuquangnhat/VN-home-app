@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "1050127576221",
+    "project_id": "capstone-810c4",
+    "storage_bucket": "capstone-810c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050127576221:android:d6a2bc14fd901517277874",
+        "android_client_info": {
+          "package_name": "com.android.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1050127576221-4balrjaeegb94l3lh3000hbd9u2thqlg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.application",
+            "certificate_hash": "46d0965c5205957228dc83a75f39906ada4e61f4"
+          }
+        },
+        {
+          "client_id": "1050127576221-8lfn1guij51c42n452p3gqdodbfidhlb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsKk1LBgFlIbjCh91HG3olbBoAOTAwAkY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1050127576221-8lfn1guij51c42n452p3gqdodbfidhlb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050127576221:android:f479bb15aa45f16a277874",
+        "android_client_info": {
+          "package_name": "com.example.test_thuetro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1050127576221-8lfn1guij51c42n452p3gqdodbfidhlb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsKk1LBgFlIbjCh91HG3olbBoAOTAwAkY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1050127576221-8lfn1guij51c42n452p3gqdodbfidhlb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
