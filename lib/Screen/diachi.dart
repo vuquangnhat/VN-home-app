@@ -219,13 +219,3 @@ class _DiachiScreenState extends State<DiachiScreen> {
     );
   }
 }
-//  String? typeofhome3;
-//   String? gioitinh3;
-//   String? soluongphongctl3;
-//   String? SucChuactl3;
-//   String? dientichctl3;
-//   String? giachothuectl3;
-//   String? tiendienctl3;
-//   String? tiennuocctl3;
-//   String? tenduongctl3;
-//   String? sonhactl3;
