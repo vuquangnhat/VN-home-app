@@ -4,23 +4,23 @@ import 'package:flutter/material.dart';
 
 import 'package:test_thuetro/savepicture/savepicture.dart';
 
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    color: Colors.white,
+    home: ItemList(),
+  ));
+}
 
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp();
-//   runApp(MaterialApp(
-//     debugShowCheckedModeBanner: false,
-//     color: Colors.white,
-//     home: ItemList(),
-//   ));
-// }
 class ItemList extends StatelessWidget {
   ItemList({Key? key}) : super(key: key) {
     _stream = _reference.snapshots();
   }
 
   CollectionReference _reference =
-  FirebaseFirestore.instance.collection('shopping_list');
+      FirebaseFirestore.instance.collection('Post');
 
   //_reference.get()  ---> returns Future<QuerySnapshot>
   //_reference.snapshots()--> Stream<QuerySnapshot> -- realtime updates
@@ -51,25 +51,55 @@ class ItemList extends StatelessWidget {
 
             //Display the list
             return ListView.builder(
+              
                 itemCount: items.length,
                 itemBuilder: (BuildContext context, int index) {
                   //Get the item at this index
                   Map thisItem = items[index];
                   //REturn the widget for the list items
-                  return ListTile(
-                    title: Text('${thisItem['name']}'),
-                    subtitle: Text('${thisItem['quantity']}'),
-                    leading: Container(
-                      height: 80,
-                      width: 80,
-                      child: thisItem.containsKey('image') ? Image.network(
-                          '${thisItem['image']}') : Container(),
+                  return Container(
+                    height: 100,
+                    width: 100,
+                    child: ListTile(
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('${thisItem['tieu de bai dang']}',style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                        
+                        ],
+                      ),
+                      subtitle: Column(
+                        children: [
+                          SizedBox(height: 10,),
+                          Row(children: [
+                             Text('${thisItem['Thanh Pho']}',style: TextStyle(fontSize: 8),),
+                          ],),
+                           Row(children: [
+                             Text('${thisItem['Giachothue']}k/tháng',style: TextStyle(fontSize: 12,color: Colors.purple,fontWeight: FontWeight.bold),),
+                          ],),
+                            Row(children: [
+                             Text('Tình trạng: còn phòng',style: TextStyle(fontSize: 12,color: Colors.purple),),
+                          ],),
+                         
+                        ],
+                      ),
+                      contentPadding: EdgeInsets.zero,
+                      isThreeLine: true,
+                      leading: Container(
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                        height: 250,
+                        width: 100,
+                        child: thisItem.containsKey('image_$index') ? Image.network(
+                            '${thisItem['image_$index']}',fit: BoxFit.cover,filterQuality: FilterQuality.high,) : Container(),
+                      ),
+                      onTap: () {
+                        // Navigator.of(context).push(MaterialPageRoute(
+                        //     builder: (context) => ItemDetails(thisItem['id'])));
+                      },
                     ),
-                    onTap: () {
-                      // Navigator.of(context).push(MaterialPageRoute(
-                      //     builder: (context) => ItemDetails(thisItem['id'])));
-                    },
                   );
+
+                
                 });
           }
 
