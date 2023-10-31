@@ -15,19 +15,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          body: Column(children: [
-            SizedBox(height: 30,),
-            ElevatedButton(onPressed: ()async{
-            await  user
-          .add({
-            'Area': 'fullName', // John Doe
-            'Availability': 'company', // Stokes and Sons
-            'Bathroom': 3 // 42
-          })
-          .then((value) => print("User Added"))
-          .catchError((error) => print("Failed to add user: $error"));
-            }, child: Text('send'))
-          ]),
+          
       );
       
     
