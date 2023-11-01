@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:test_thuetro/savepicture/item_details.dart';
 
 import 'package:test_thuetro/savepicture/savepicture.dart';
 
@@ -148,8 +149,8 @@ class ItemList extends StatelessWidget {
                             : Container(),
                       ),
                       onTap: () {
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //     builder: (context) => ItemDetails(thisItem['id'])));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => ItemDetails(thisItem['Post ID'])));
                       },
                     ),
                   );
