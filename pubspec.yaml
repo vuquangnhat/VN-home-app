@@ -16,6 +16,9 @@ dependencies:
   image_picker: ^1.0.4
   firebase_storage: ^11.3.1
   carousel_slider: ^4.2.1
+  cupertino_icons: ^1.0.6
+  google_fonts: ^6.1.0
+  font_awesome_flutter: ^10.6.0
 
 dev_dependencies:
   flutter_test:
@@ -24,3 +27,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/images/
