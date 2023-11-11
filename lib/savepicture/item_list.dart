@@ -43,21 +43,23 @@ class ItemList extends StatelessWidget {
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             //Check error
             if (snapshot.hasError) {
-              return Center(child: Text('Some error occurred ${snapshot.error}'));
+              return Center(
+                  child: Text('Some error occurred ${snapshot.error}'));
             }
-        
+
             //Check if data arrived
             if (snapshot.hasData) {
               //get the data
               QuerySnapshot querySnapshot = snapshot.data;
               List<QueryDocumentSnapshot> documents = querySnapshot.docs;
-        
+
               //Convert the documents to Maps
               List<Map> items = documents.map((e) => e.data() as Map).toList();
-        
+
               //Display the list
-              
+
               return ListView.builder(
+                  scrollDirection: Axis.vertical,
                   itemCount: items.length,
                   itemBuilder: (BuildContext context, int index) {
                     //Get the item at this index
@@ -112,7 +114,7 @@ class ItemList extends StatelessWidget {
                     //               '${thisItem['Thanh Pho']}',
                     //               style: TextStyle(fontSize: 8),
                     //             ),
-        
+
                     //           ],
                     //         ),
                     //         SizedBox(height: 10,),
@@ -141,7 +143,7 @@ class ItemList extends StatelessWidget {
                     //     contentPadding: EdgeInsets.zero,
                     //     isThreeLine: true,
                     //     // leading: Container(
-        
+
                     //     //   decoration: BoxDecoration(
                     //     //      color: Colors.white,
                     //     //       // borderRadius: BorderRadius.circular(30)
@@ -162,7 +164,7 @@ class ItemList extends StatelessWidget {
                     //               height: 200,
                     //               width: 250,
                     //             ):SizedBox(height: 200,width: 250,)),
-        
+
                     //     trailing: Icon(Icons.more_vert),
                     //     onTap: () {
                     //       Navigator.of(context).push(MaterialPageRoute(
@@ -170,142 +172,150 @@ class ItemList extends StatelessWidget {
                     //     },
                     //   ),
                     // );
-                    if (thisItem['image_$index'] != null && thisItem['image_$index'] is String) {
-                    return Container(
-                      margin: EdgeInsets.only(bottom: 10),
-                      height: 210,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        image: DecorationImage(
-                          image: NetworkImage(thisItem['image_$index']),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      child: Container(
-                        padding: EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.transparent,
-                              Colors.black.withOpacity(0.7),
-                            ],
+                    if (thisItem['image_$index'] != null &&
+                        thisItem['image_$index'] is String) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  ItemDetails(thisItem['Post ID'])));
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 10),
+                          height: 210,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            image: DecorationImage(
+                              image: NetworkImage(thisItem['image_$index']),
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                            
-                              decoration: BoxDecoration(
-                                color: Colors.yellow[700],
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(5),
-                                ),
+                          child: Container(
+                            padding: EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.transparent,
+                                  Colors.black.withOpacity(0.7),
+                                ],
                               ),
-                              width: 100,
-                              padding: EdgeInsets.symmetric(
-                                vertical: 4,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  '${thisItem['LoaiPhong']}',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.yellow[700],
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(5),
+                                    ),
+                                  ),
+                                  width: 100,
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 4,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      '${thisItem['LoaiPhong']}',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(),
-                            ),
-                            Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      '${thisItem['tieu de bai dang']}',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                       '${thisItem['Giachothue']}/Tháng',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
+                                Expanded(
+                                  child: Container(),
                                 ),
-                                SizedBox(
-                                  height: 4,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                Column(
                                   children: [
                                     Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Icon(
-                                          Icons.location_on,
-                                          color: Colors.white,
-                                          size: 14,
-                                        ),
-                                        SizedBox(
-                                          width: 4,
-                                        ),
                                         Text(
-                                          '${thisItem['Thanh Pho']}',
+                                          '${thisItem['tieu de bai dang']}',
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 14,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        SizedBox(
-                                          width: 8,
-                                        ),
-                                        Icon(
-                                          Icons.zoom_out_map,
-                                          color: Colors.white,
-                                          size: 16,
-                                        ),
-                                        SizedBox(
-                                          width: 4,
-                                        ),
                                         Text(
-                                          '${thisItem['DienTich']} m2',
+                                          '${thisItem['Giachothue']}/Tháng',
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 14,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                       ],
                                     ),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
                                     Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Icon(
-                                          Icons.star,
-                                          color: Colors.yellow[700],
-                                          size: 14,
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              Icons.location_on,
+                                              color: Colors.white,
+                                              size: 14,
+                                            ),
+                                            SizedBox(
+                                              width: 4,
+                                            ),
+                                            Text(
+                                              '${thisItem['Thanh Pho']}',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 8,
+                                            ),
+                                            Icon(
+                                              Icons.zoom_out_map,
+                                              color: Colors.white,
+                                              size: 16,
+                                            ),
+                                            SizedBox(
+                                              width: 4,
+                                            ),
+                                            Text(
+                                              '${thisItem['DienTich']} m2',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        SizedBox(
-                                          width: 4,
-                                        ),
-                                        Text(
-                                          " Reviews",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                          ),
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              Icons.star,
+                                              color: Colors.yellow[700],
+                                              size: 14,
+                                            ),
+                                            SizedBox(
+                                              width: 4,
+                                            ),
+                                            Text(
+                                              " Reviews",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
@@ -313,20 +323,20 @@ class ItemList extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    );
-                    };
+                      );
+                    }
+                    ;
                   });
             }
-        
+
             //Show loader
             return Center(child: CircularProgressIndicator());
           },
         ),
       ),
-     //Display a list // Add a FutureBuilder
+      //Display a list // Add a FutureBuilder
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context)
