@@ -38,12 +38,9 @@ class Tienich extends StatefulWidget {
     'Nội thất': false,
   };
 
-
-
   Tienich({
     required this.documentsend3,
     Key? key,
-  
   }) : super(key: key);
 
   @override
@@ -62,7 +59,7 @@ class _TienichState extends State<Tienich> {
       FirebaseFirestore.instance.collection('Post');
   List<String> tienich_list = [];
   final ImagePicker imgpicker = ImagePicker();
-
+  int dem = 0;// dung de thoat khoi vong lap
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,6 +132,8 @@ class _TienichState extends State<Tienich> {
                         print('khong co tam anh nao duoc chon');
                       }
                       for (int i = 0; i < imageUrls.length; i++) {
+                        
+                        if(dem ==1) break;
                           //Get a reference to storage root
                         Reference referenceRoot =
                             FirebaseStorage.instance.ref();
@@ -157,7 +156,43 @@ class _TienichState extends State<Tienich> {
                         _reference.doc(widget.documentsend3).update(dataToSend);
                         print('them thanh cong ');
                         //Handle errors/success
+                        dem++;
                       }
+                      // them vao kieu mang
+                      if (file != null) {
+                        setState(() {
+                          imageUrls.add(file.path);
+                        });
+                      } else {
+                        print('No image selected');
+                      }
+
+                      List<String> imageUrlList = [];
+
+                      for (int i = 0; i < 1; i++) {
+                        Reference referenceRoot =
+                            FirebaseStorage.instance.ref();
+                        Reference referenceDirImages =
+                            referenceRoot.child('images');
+                        String name = DateTime.now().toString();
+                        Reference referenceImageToUpload =
+                            referenceDirImages.child('$name');
+
+                        await referenceImageToUpload.putFile(File(file!.path));
+
+                        imageUrl =
+                            await referenceImageToUpload.getDownloadURL();
+                        imageUrlList.add(imageUrl);
+                      }
+
+                      // Update Firestore with the list of image URLs
+                      Map<String, dynamic> dataToSend = {
+                        'imageUrls': FieldValue.arrayUnion(imageUrlList),
+                      };
+
+                      _reference.doc(widget.documentsend3).update(dataToSend);
+
+                      print('Images uploaded successfully');
                     },
                     icon: Icon(Icons.camera_alt_sharp),
                     label: Text('Chụp hình'))
@@ -232,12 +267,16 @@ class _TienichState extends State<Tienich> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 OutlinedButton(
-                    onPressed: () async {   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ConformScrenn(documentsend4: widget.documentsend3,
-                              )),
-                    );}, child: Text('Tiếp Theo')),
+                    onPressed: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ConformScrenn(
+                                  documentsend4: widget.documentsend3,
+                                )),
+                      );
+                    },
+                    child: Text('Tiếp Theo')),
               ],
             )
           ],

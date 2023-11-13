@@ -172,8 +172,8 @@ class ItemList extends StatelessWidget {
                     //     },
                     //   ),
                     // );
-                    if (thisItem['image_$index'] != null &&
-                        thisItem['image_$index'] is String) {
+                    if (thisItem['image_0'] != null &&
+                        thisItem['image_0'] is String) {
                       return GestureDetector(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
@@ -186,7 +186,7 @@ class ItemList extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             image: DecorationImage(
-                              image: NetworkImage(thisItem['image_$index']),
+                              image: NetworkImage(thisItem['image_0']),
                               fit: BoxFit.cover,
                             ),
                           ),

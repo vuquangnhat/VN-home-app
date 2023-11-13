@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+import '../component/listtile.dart';
 // import 'package:flutterfiredemo/edit_item.dart';
 
 class ItemDetails extends StatefulWidget {
@@ -26,13 +28,15 @@ class _ItemDetailsState extends State<ItemDetails>
   late Map data;
   late final TabController _tabController;
   List<dynamic> tienich_list = [];
+  List<dynamic> image_list = [];
 
   //list này dùng để lấy dữ liệu array từ firebase
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    getFriendsList();
+    gettienichlistfromfirebase();
+    get_image_list_from_firebase();
   }
 
   @override
@@ -41,7 +45,7 @@ class _ItemDetailsState extends State<ItemDetails>
     super.dispose();
   }
 
-  void getFriendsList() async {
+  void gettienichlistfromfirebase() async {
     try {
       final DocumentSnapshot<Map<String, dynamic>> value =
           await FirebaseFirestore.instance
@@ -62,6 +66,36 @@ class _ItemDetailsState extends State<ItemDetails>
           }
         } else {
           print("Trường 'tienich_list' là null trong tài liệu.");
+        }
+      } else {
+        print("Tài liệu không tồn tại.");
+      }
+    } catch (error) {
+      print("Lỗi khi lấy dữ liệu: $error");
+    }
+  }
+
+  void get_image_list_from_firebase() async {
+    try {
+      final DocumentSnapshot<Map<String, dynamic>> value =
+          await FirebaseFirestore.instance
+              .collection("Post")
+              .doc(widget.itemId)
+              .get();
+
+      if (value.exists) {
+        final dynamic imagelist = value.data()?["imageUrls"];
+
+        if (imagelist != null) {
+          // Kiểm tra xem trường "tienich_list" có phải là mảng chuỗi hay không
+          if (imagelist is List) {
+            image_list = List<String>.from(imagelist);
+            print(image_list);
+          } else {
+            print("Trường 'imageUrls' không phải là mảng trong tài liệu.");
+          }
+        } else {
+          print("Trường 'imageUrls' là null trong tài liệu.");
         }
       } else {
         print("Tài liệu không tồn tại.");
@@ -140,7 +174,7 @@ class _ItemDetailsState extends State<ItemDetails>
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
                         image: DecorationImage(
-                          image: NetworkImage(data['image_1']),
+                          image: NetworkImage(data['image_0']),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -359,13 +393,15 @@ class _ItemDetailsState extends State<ItemDetails>
                     TabBar(
                       controller: _tabController,
                       tabs: [
-                        Tab(
-                          child: Text(
-                            'About',
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
+                        SingleChildScrollView(
+                          child: Tab(
+                            child: Text(
+                              'About',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                         Tab(
@@ -393,71 +429,207 @@ class _ItemDetailsState extends State<ItemDetails>
                         controller: _tabController,
                         children: [
                           // Content for Tab 1
-                          Container(
-                              color: Colors.white,
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                          SingleChildScrollView(
+                            child: Container(
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text(
+                                            'Tiện ích :',
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          if (tienich_list != null)
+                                            for (String item in tienich_list)
+                                              Text(
+                                                '$item, ',
+                                                style: TextStyle(
+                                                    fontSize: 13,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                softWrap: true,
+                                              ),
+                                        ],
+                                      ),
+                                    ),
+                                    Row(
                                       children: [
-                                        Text(
-                                          'Tiện ích :',
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 13, top: 10),
+                                          child: Text(
+                                            'Mô tả chi tiết',
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                         ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        if (tienich_list != null)
-                                          for (String item in tienich_list)
-                                            Text(
-                                              '$item, ',
-                                              style: TextStyle(
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.bold),
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
                                       ],
                                     ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 13, top: 10),
+                                    //mo ta chi tiet
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 13, top: 10),
+                                      child: Container(
+                                        width: double
+                                            .infinity, // Cho phép Text tự động xuống dòng khi không có đủ không gian
                                         child: Text(
-                                          'Mô tả chi tiết',
+                                          ' ${data['noi dung mo ta']}',
                                           style: TextStyle(
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold),
+                                          softWrap: true,
                                         ),
                                       ),
-                                    ],
-                                  ),
-                          //mo ta chi tiet       
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 13, top: 10),
-                                  child: Container(
-                                    width: double.infinity, // Cho phép Text tự động xuống dòng khi không có đủ không gian
-                                    child: Text(
-                                      ' ${data['noi dung mo ta']}',
-                                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                                      softWrap: true,
                                     ),
-                                  ),
-                                )
-                                ],
-                              )),
+                                    // tai khoan dang bai
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 13, top: 10),
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                width: 350,
+                                                height:
+                                                    50, // You can adjust the height as needed
+                                                child: Center(
+                                                  child: ListTile(
+                                                    leading: CircleAvatar(
+                                                        child: Text('V')),
+                                                    title:
+                                                        Text('Vũ Quang Nhật'),
+                                                    subtitle: Text('Chủ Trọ'),
+                                                    trailing: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceAround,
+                                                      children: [
+                                                        Icon(Icons.chat,
+                                                            color: Colors.blue),
+                                                        SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Icon(Icons.call,
+                                                            color: Colors.blue),
+                                                        // Add more icons or widgets as needed
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+
+                                    Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 13, top: 15),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                'Địa Chỉ',
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              TextButton(
+                                                style: TextButton.styleFrom(
+                                                  foregroundColor:
+                                                      Color.fromARGB(
+                                                          255, 2, 136, 246),
+                                                  padding: const EdgeInsets.all(
+                                                      16.0),
+                                                  textStyle: const TextStyle(
+                                                      fontSize: 15,
+                                                      color: Colors.blue,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                onPressed: () {},
+                                                child: const Text('Bản Đồ'),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Center(
+                                            child: const Text(
+                                          '____________________________________________________________',
+                                          style: TextStyle(color: Colors.grey),
+                                        ))
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 13, top: 0),
+                                      child: Row(
+                                        children: [
+                                          Icon(Icons.home),
+                                          Text(
+                                              ' ${data['So Nha']} ${data['Ten Duong']}, ${data['Thanh Pho']}')
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      height: 210,
+                                      width: double.maxFinite,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30),
+                                        image: DecorationImage(
+                                          image: NetworkImage(data['image_0']),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )),
+                          ),
                           // Content for Tab 2
                           Container(
                             color: Colors.green,
-                            child: Center(
-                              child: Text('Tab 2 Content'),
+                            child: Column(
+                              children: [
+                                if (image_list != null)
+                                  for (String item in image_list)
+                                    Container(
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      height: 210,
+                                      width: double.maxFinite,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30),
+                                        image: DecorationImage(
+                                          image: NetworkImage('$item'),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    )
+                              ],
                             ),
                           ),
                           Container(
