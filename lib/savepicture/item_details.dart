@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:test_thuetro/savepicture/detailpicture.dart';
 
 import '../component/listtile.dart';
 // import 'package:flutterfiredemo/edit_item.dart';
@@ -612,24 +613,39 @@ class _ItemDetailsState extends State<ItemDetails>
                           ),
                           // Content for Tab 2
                           Container(
-                            color: Colors.green,
-                            child: Column(
-                              children: [
-                                if (image_list != null)
-                                  for (String item in image_list)
-                                    Container(
-                                      margin: EdgeInsets.only(bottom: 10),
-                                      height: 210,
-                                      width: double.maxFinite,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(30),
-                                        image: DecorationImage(
-                                          image: NetworkImage('$item'),
-                                          fit: BoxFit.cover,
-                                        ),
+                            color: Colors.white,
+                            child: GridView.builder(
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3, // Số lượng cột trên mỗi dòng
+                                crossAxisSpacing:
+                                    8.0, // Khoảng cách giữa các cột
+                                mainAxisSpacing:
+                                    8.0, // Khoảng cách giữa các dòng
+                              ),
+                              itemCount: image_list.length,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => DetailPage(
+                                            imageUrl: image_list[index]),
                                       ),
-                                    )
-                              ],
+                                    );
+                                  },
+                                  child: Image.network(
+                                    image_list[index],
+                                    height:
+                                        80.0, // Điều chỉnh chiều cao của hình ảnh theo ý muốn
+                                    width:
+                                        80.0, // Điều chỉnh chiều rộng của hình ảnh theo ý muốn
+                                    fit: BoxFit
+                                        .cover, // Để hình ảnh nằm trong ô widget
+                                  ),
+                                );
+                              },
                             ),
                           ),
                           Container(
