@@ -617,7 +617,7 @@ class _ItemDetailsState extends State<ItemDetails>
                             child: GridView.builder(
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3, // Số lượng cột trên mỗi dòng
+                                crossAxisCount: 2, // Số lượng cột trên mỗi dòng
                                 crossAxisSpacing:
                                     8.0, // Khoảng cách giữa các cột
                                 mainAxisSpacing:
