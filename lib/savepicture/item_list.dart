@@ -8,15 +8,15 @@ import 'package:test_thuetro/test/search.dart';
 
 enum SampleItem { itemOne, itemTwo, itemThree }
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    color: Colors.white,
-    home: ItemList(),
-  ));
-}
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp();
+//   runApp(MaterialApp(
+//     debugShowCheckedModeBanner: false,
+//     color: Colors.white,
+//     home: ItemList(),
+//   ));
+// }
 
 class ItemList extends StatelessWidget {
   ItemList({Key? key}) : super(key: key) {
