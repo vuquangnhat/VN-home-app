@@ -21,6 +21,7 @@ dependencies:
   font_awesome_flutter: ^10.6.0
   flutter_map: ^6.0.1
   flutter_osm_plugin: ^0.70.0
+  fluttertoast: ^8.2.4
 
 
   
