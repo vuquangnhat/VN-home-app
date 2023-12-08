@@ -24,6 +24,7 @@ dependencies:
   location: ^5.0.3
   latlng: ^1.0.0
   url_launcher: ^6.1.14
+  fluttertoast: ^8.2.4
 
 
   
