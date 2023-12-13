@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:test_thuetro/Screen/signin.dart';
+import 'package:test_thuetro/Screen/loginpage.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
@@ -182,7 +182,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Signin()));
+                                  builder: (context) => LoginPage()));
                         },
                         child: Text(
                           " Right Here!",

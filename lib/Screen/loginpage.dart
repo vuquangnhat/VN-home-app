@@ -4,6 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import 'package:test_thuetro/Screen/signup.dart';
 import 'package:test_thuetro/buttonnavigation/src/main.dart';
 
 void main() async {
@@ -46,14 +48,14 @@ class _LoginPageState extends State<LoginPage> {
       );
       print('User Logged In: ${userCredential.user!.email}');
       print('id :${_auth.currentUser?.uid}');
-      CollectionReference account = FirebaseFirestore.instance.collection('Users');
-      account.doc(_auth.currentUser?.uid).set({
-        'Email': '${userCredential.user!.email}',
-        'Name' : 'Vu Quang Nhat',
-        'user id': '${_auth.currentUser?.uid}',
-      }
+      // CollectionReference account = FirebaseFirestore.instance.collection('Users');
+      // account.doc(_auth.currentUser?.uid).set({
+      //   'Email': '${userCredential.user!.email}',
+      //   'Name' : 'Vu Quang Nhat',
+      //   'user id': '${_auth.currentUser?.uid}',
+      // }
           
-      );
+      // );
     } catch (e) {
       print('Error During Login: $e');
     }
@@ -328,7 +330,11 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Text('THÀNH VIÊN MỚI?'),
                     TextButton(child:Text(' Đăng Kí Ngay') ,onPressed: () {
-                      
+                      Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => SignUp(),
+                                      ));
                     },),
                   ],
                 )
