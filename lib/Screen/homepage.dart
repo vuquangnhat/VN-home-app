@@ -4,6 +4,8 @@ import 'package:test_thuetro/component/listviewmost.dart';
 import 'package:test_thuetro/component/listviewpost.dart';
 
 import '../component/listtile.dart';
+import '../component/listviewsearch.dart';
+import 'Pagesearch.dart';
 
 // void main() async {
 //   WidgetsFlutterBinding.ensureInitialized();
@@ -125,7 +127,13 @@ class _HomePageState extends State<HomePage> {
                           width: 257,
                           height: 30,
                           child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Pagesearch(),
+                                      ));
+                              },
                               style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all<Color>(
                                   const Color.fromRGBO(28, 107, 253, 1),

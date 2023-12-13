@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:test_thuetro/Screen/forgotpassword.dart';
 
 import 'package:test_thuetro/Screen/signup.dart';
 import 'package:test_thuetro/buttonnavigation/src/main.dart';
@@ -243,7 +244,13 @@ class _LoginPageState extends State<LoginPage> {
                           Padding(
                             padding: const EdgeInsets.only(left: 190, top: 1),
                             child: TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ForgotPassword(),
+                                      ));
+                                },
                                 child: Text(
                                   'QUÊN MẬT KHẨU',
                                   style: TextStyle(
