@@ -10,6 +10,8 @@ dependencies:
   firebase_auth: ^4.15.2
   cloud_firestore: ^4.11.0
   firebase_core: ^2.24.2
+  shared_preferences: ^2.2.2
+  random_string: ^2.3.1
   flutter:
     sdk: flutter
   dropdown_button2: ^2.3.9
