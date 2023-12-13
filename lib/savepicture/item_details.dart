@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test_thuetro/savepicture/detailpicture.dart';
 
-import '../component/listtile.dart';
+import '../component/listviewmost.dart';
 // import 'package:flutterfiredemo/edit_item.dart';
 
 class ItemDetails extends StatefulWidget {
@@ -24,12 +25,92 @@ class ItemDetails extends StatefulWidget {
 
 class _ItemDetailsState extends State<ItemDetails>
     with SingleTickerProviderStateMixin {
-  CollectionReference _reference =
-      FirebaseFirestore.instance.collection('Post');
   late Map data;
   late final TabController _tabController;
   List<dynamic> tienich_list = [];
   List<dynamic> image_list = [];
+  Map? account_list;
+  String tennguoidang = '';
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  // void getinformationaccount(String documentKey) async {
+  //   // Khởi tạo Firestore
+  //   FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  //   try {
+  //     // Lấy dữ liệu từ Firestore bằng cách sử dụng document key
+  //     DocumentSnapshot documentSnapshot = await firestore
+  //         .collection('Post')
+  //         .doc(widget.itemId)
+  //         .get();
+
+  //     // Kiểm tra xem có dữ liệu không
+  //     if (documentSnapshot.exists) {
+  //       // Lấy dữ liệu từ document
+  //       Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+  //       if(data.containsKey('user id')) {
+  //          print('Trường user id tồn tại trong document với key ${widget.itemId}');
+  //       }else{
+  //         print('khong ton tai truong nay');
+  //       }
+
+  //       // Xử lý dữ liệu theo ý muốn
+  //       // print('Dữ liệu từ Firestore: ${account_list['Name']}adadadad');
+  //     } else {
+  //       print('Không tìm thấy dữ liệu với key: $documentKey');
+  //     }
+  //   } catch (e) {
+  //     print('Lỗi khi lấy dữ liệu từ Firestore: $e');
+  //   }
+  // }
+  void compareUserIds(String documentKey) async {
+    // Khởi tạo Firestore
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    String postUserId = '';
+    try {
+      // Lấy dữ liệu từ collection 'Post' bằng cách sử dụng document key
+      DocumentSnapshot postSnapshot =
+          await firestore.collection('Post').doc(widget.itemId).get();
+
+      // Kiểm tra xem document trong collection 'Post' có tồn tại không
+      if (postSnapshot.exists) {
+        // Lấy dữ liệu từ document trong collection 'Post'
+        Map<String, dynamic> postData =
+            postSnapshot.data() as Map<String, dynamic>;
+        // print(postData['user id']);
+        // Lấy giá trị trường 'userid' từ document trong collection 'Post'
+        if (postData.containsKey('user id') && postData['user id'] != null) {
+          postUserId = postData['user id'];
+        } else {
+          print(
+              'Giá trị của user id là null hoặc không tồn tại trong postData.');
+        }
+
+        // Lấy dữ liệu từ collection 'Users' bằng cách sử dụng userid từ collection 'Post'
+        DocumentSnapshot documentSnapshot =
+            await firestore.collection('Users').doc(documentKey).get();
+        Map<String, dynamic> Useridaccount =
+            documentSnapshot.data() as Map<String, dynamic>;
+        String Usersid = documentSnapshot['user id'];
+        if (postUserId == Usersid) {
+          print('2 truong nay giong nhai');
+          setState(() {
+            account_list = Useridaccount;
+            print(account_list?['Name']);
+            tennguoidang = account_list?['Name'];
+          });
+        } else {
+          print('2 truong nay khac nhau');
+          print('post user id: $postUserId');
+          print('Users id: $Usersid');
+        }
+      } else {
+        print('Không tìm thấy document trong collection Post với key:');
+      }
+    } catch (e) {
+      print('Lỗi khi so sánh userid trong Firestore: $e');
+    }
+  }
 
   //list này dùng để lấy dữ liệu array từ firebase
   @override
@@ -38,6 +119,7 @@ class _ItemDetailsState extends State<ItemDetails>
     _tabController = TabController(length: 3, vsync: this);
     gettienichlistfromfirebase();
     get_image_list_from_firebase();
+    compareUserIds('${_auth.currentUser?.uid}');
   }
 
   @override
@@ -106,51 +188,9 @@ class _ItemDetailsState extends State<ItemDetails>
     }
   }
 
-// void getFriendsList() async {
-//   try {
-//     final DocumentSnapshot<Map<String, dynamic>> value =
-//         await FirebaseFirestore.instance.collection("Users").doc(widget.itemId).get();
-
-//     if (value.exists) {
-//       final dynamic tienichList = value.data()?["tienich_list"];
-
-//       if (tienichList != null) {
-//         final dynamic tienichList = List<String>.from(tienichList);
-//         print(friendsList);
-//       } else {
-//         print("Trường 'tienich_list' không tồn tại trong tài liệu.");
-//       }
-//     } else {
-//       print("Tài liệu không tồn tại.");
-//     }
-//   } catch (error) {
-//     print("Lỗi khi lấy dữ liệu: $error");
-//   }
-// }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Item details'),
-      //   actions: [
-      //     IconButton(
-      //         onPressed: () {
-      //           //add the id to the map
-      //           data['Post ID'] = widget.itemId;
-
-      //           // Navigator.of(context).push(MaterialPageRoute(
-      //           //     builder: (context) => EditItem(data)));
-      //         },
-      //         icon: Icon(Icons.edit)),
-      //     IconButton(
-      //         onPressed: () {
-      //           //Delete the item
-      //           widget._reference.delete();
-      //         },
-      //         icon: Icon(Icons.delete))
-      //   ],
-      // ),
       body: FutureBuilder<DocumentSnapshot>(
         future: widget._futureData,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -159,6 +199,7 @@ class _ItemDetailsState extends State<ItemDetails>
           }
 
           if (snapshot.hasData) {
+      
             //Get the data
             DocumentSnapshot documentSnapshot = snapshot.data;
             data = documentSnapshot.data() as Map;
@@ -511,8 +552,7 @@ class _ItemDetailsState extends State<ItemDetails>
                                                   child: ListTile(
                                                     leading: CircleAvatar(
                                                         child: Text('V')),
-                                                    title:
-                                                        Text('Vũ Quang Nhật'),
+                                                    title: Text(tennguoidang),
                                                     subtitle: Text('Chủ Trọ'),
                                                     trailing: Row(
                                                       mainAxisSize:
@@ -569,7 +609,10 @@ class _ItemDetailsState extends State<ItemDetails>
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  print(account_list?['Name'] ??
+                                                      'Vũ Quang Nhật');
+                                                },
                                                 child: const Text('Bản Đồ'),
                                               ),
                                             ],

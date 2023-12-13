@@ -7,9 +7,9 @@ environment:
   sdk: '>=3.0.3 <4.0.0'
 
 dependencies:
-  firebase_auth: ^4.6.1
+  firebase_auth: ^4.15.2
   cloud_firestore: ^4.11.0
-  firebase_core: ^2.19.0
+  firebase_core: ^2.24.2
   flutter:
     sdk: flutter
   dropdown_button2: ^2.3.9
@@ -25,6 +25,11 @@ dependencies:
   latlng: ^1.0.0
   url_launcher: ^6.1.14
   fluttertoast: ^8.2.4
+  google_nav_bar: ^5.0.6
+  google_sign_in: ^6.1.6
+  http: ^1.1.0
+  intl: ^0.18.1
+  sprintf: ^7.0.0
 
 
   
@@ -32,7 +37,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
 
 flutter:
   uses-material-design: true

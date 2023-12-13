@@ -43,7 +43,7 @@ class _SearchBarAppState extends State<SearchBarApp> {
     _filteredItems = List<Map>.from(items);
     setState(() {
       _filteredItems = items
-          .where((item) => item['tieu de bai dangc']
+          .where((item) => item['tieu de bai dang']
               .toLowerCase()
               .contains(value.toLowerCase()))
           .toList();

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 const List<String> list = <String>['HÀ NỘI', 'ĐÀ NẴNG', 'HỒ CHÍ MINH'];
 
-void main() => runApp(const DropdownMenuApp());
+// void main() => runApp(const DropdownMenuApp());
 
 class DropdownMenuApp extends StatelessWidget {
   const DropdownMenuApp({super.key});
