@@ -35,7 +35,7 @@ class _ConformScrennState extends State<ConformScrenn> {
     super.initState();
 
     // Thực hiện các hành động bạn muốn khi màn hình được mở
-    userid = _auth.currentUser?.uid; // Ví dụ: Lấy dữ liệu từ server
+    userid = _auth.currentUser?.uid; 
   }
    
   @override

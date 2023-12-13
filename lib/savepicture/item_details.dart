@@ -31,86 +31,58 @@ class _ItemDetailsState extends State<ItemDetails>
   List<dynamic> image_list = [];
   Map? account_list;
   String tennguoidang = '';
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+void getInfoIfUserIdExists(String postUserId) async {
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  String? userId;
 
-  // void getinformationaccount(String documentKey) async {
-  //   // Khởi tạo Firestore
-  //   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  try {
+    // Lấy dữ liệu từ collection 'Post' bằng cách sử dụng post id
+    DocumentSnapshot postSnapshot =
+        await firestore.collection('Post').doc(postUserId).get();
 
-  //   try {
-  //     // Lấy dữ liệu từ Firestore bằng cách sử dụng document key
-  //     DocumentSnapshot documentSnapshot = await firestore
-  //         .collection('Post')
-  //         .doc(widget.itemId)
-  //         .get();
+    if (postSnapshot.exists) {
+      // Nếu document tồn tại, lấy giá trị user id từ trường 'user id'
+      Map<String, dynamic> postData = postSnapshot.data() as Map<String, dynamic>;
+      userId = postData['user id'] as String?;
+      print(userId);
+    } else {
+      print(
+          'Không tìm thấy document có post id là $postUserId trong collection Post.');
+      return;
+    }
+  } catch (e) {
+    print('Lỗi khi lấy user id từ post id: $e');
+    return;
+  }
 
-  //     // Kiểm tra xem có dữ liệu không
-  //     if (documentSnapshot.exists) {
-  //       // Lấy dữ liệu từ document
-  //       Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
-  //       if(data.containsKey('user id')) {
-  //          print('Trường user id tồn tại trong document với key ${widget.itemId}');
-  //       }else{
-  //         print('khong ton tai truong nay');
-  //       }
-
-  //       // Xử lý dữ liệu theo ý muốn
-  //       // print('Dữ liệu từ Firestore: ${account_list['Name']}adadadad');
-  //     } else {
-  //       print('Không tìm thấy dữ liệu với key: $documentKey');
-  //     }
-  //   } catch (e) {
-  //     print('Lỗi khi lấy dữ liệu từ Firestore: $e');
-  //   }
-  // }
-  void compareUserIds(String documentKey) async {
-    // Khởi tạo Firestore
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-    String postUserId = '';
+  // Kiểm tra xem userId có giá trị không trước khi sử dụng nó để truy vấn collection 'Users'
+  if (userId != null) {
     try {
-      // Lấy dữ liệu từ collection 'Post' bằng cách sử dụng document key
-      DocumentSnapshot postSnapshot =
-          await firestore.collection('Post').doc(widget.itemId).get();
-
-      // Kiểm tra xem document trong collection 'Post' có tồn tại không
-      if (postSnapshot.exists) {
-        // Lấy dữ liệu từ document trong collection 'Post'
-        Map<String, dynamic> postData =
-            postSnapshot.data() as Map<String, dynamic>;
-        // print(postData['user id']);
-        // Lấy giá trị trường 'userid' từ document trong collection 'Post'
-        if (postData.containsKey('user id') && postData['user id'] != null) {
-          postUserId = postData['user id'];
-        } else {
-          print(
-              'Giá trị của user id là null hoặc không tồn tại trong postData.');
-        }
-
-        // Lấy dữ liệu từ collection 'Users' bằng cách sử dụng userid từ collection 'Post'
-        DocumentSnapshot documentSnapshot =
-            await firestore.collection('Users').doc(documentKey).get();
-        Map<String, dynamic> Useridaccount =
-            documentSnapshot.data() as Map<String, dynamic>;
-        String Usersid = documentSnapshot['user id'];
-        if (postUserId == Usersid) {
-          print('2 truong nay giong nhai');
-          setState(() {
-            account_list = Useridaccount;
-            print(account_list?['Name']);
-            tennguoidang = account_list?['Name'];
-          });
-        } else {
-          print('2 truong nay khac nhau');
-          print('post user id: $postUserId');
-          print('Users id: $Usersid');
-        }
+      DocumentSnapshot userSnapshot = await firestore
+          .collection('Users')
+          .doc(userId)
+          .get();
+      if (userSnapshot.exists) {
+        Map<String, dynamic> userData = userSnapshot.data() as Map<String, dynamic>;
+        userData.forEach((key, value) {
+           print('$key: $value');
+         });
+        account_list = userData;
+        setState(() {
+          tennguoidang = account_list?['Name'] ?? 'Vũ Quang Nhật';
+          print(tennguoidang);
+        });
       } else {
-        print('Không tìm thấy document trong collection Post với key:');
+        print('Không tìm thấy user data name');
       }
     } catch (e) {
-      print('Lỗi khi so sánh userid trong Firestore: $e');
+      print('Lỗi khi lấy user id từ post id: $e');
     }
+  } else {
+    print('userId là null');
   }
+}
+
 
   //list này dùng để lấy dữ liệu array từ firebase
   @override
@@ -119,7 +91,7 @@ class _ItemDetailsState extends State<ItemDetails>
     _tabController = TabController(length: 3, vsync: this);
     gettienichlistfromfirebase();
     get_image_list_from_firebase();
-    compareUserIds('${_auth.currentUser?.uid}');
+    getInfoIfUserIdExists(widget.itemId);
   }
 
   @override
@@ -199,7 +171,6 @@ class _ItemDetailsState extends State<ItemDetails>
           }
 
           if (snapshot.hasData) {
-      
             //Get the data
             DocumentSnapshot documentSnapshot = snapshot.data;
             data = documentSnapshot.data() as Map;
@@ -610,8 +581,7 @@ class _ItemDetailsState extends State<ItemDetails>
                                                           FontWeight.bold),
                                                 ),
                                                 onPressed: () {
-                                                  print(account_list?['Name'] ??
-                                                      'Vũ Quang Nhật');
+                                                  getInfoIfUserIdExists(widget.itemId);
                                                 },
                                                 child: const Text('Bản Đồ'),
                                               ),
