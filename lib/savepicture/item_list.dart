@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:test_thuetro/component/listviewpost.dart';
 import 'package:test_thuetro/component/listviewsearch.dart';
 import 'package:test_thuetro/savepicture/savepicture.dart';
+
+import '../component/listviewitem.dart';
 enum SampleItem { itemOne, itemTwo, itemThree }
 
 // void main() async {
@@ -76,7 +78,7 @@ class _SearchcustomState extends State<Searchcustom> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListviewSearch(),
+      body: Listviewitem(),
     );
   }
 }

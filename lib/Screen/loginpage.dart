@@ -9,11 +9,11 @@ import 'package:test_thuetro/Screen/forgotpassword.dart';
 import 'package:test_thuetro/Screen/signup.dart';
 import 'package:test_thuetro/buttonnavigation/src/main.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MyApp());
-}
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp();
+//   runApp(MyApp());
+// }
 
 class MyApp extends StatelessWidget {
   @override

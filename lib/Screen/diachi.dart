@@ -32,7 +32,7 @@ class _DiachiScreenState extends State<DiachiScreen> {
   final TextEditingController sonhactl = TextEditingController();
    CollectionReference Post1 =
                                 FirebaseFirestore.instance.collection('Post');
-
+  String get selectedDropdownValue => dropdownValue;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

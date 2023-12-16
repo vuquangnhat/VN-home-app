@@ -31,19 +31,20 @@ class _ListviewSearchState extends State<ListviewSearch> {
     });
   }
 
-  search(String value) {
-    print(value);
-    _filteredItems = List<Map>.from(items);
-    setState(() {
-      _filteredItems = items
-          .where((item) => item['tieu de bai dang']
-              .toLowerCase()
-              .contains(value.toLowerCase()))
-          .toList();
-      print('Here: ${_filteredItems.length}');
-    });
-    print(_filteredItems);
-  }
+search(String value) {
+  print(value);
+  setState(() {
+    _filteredItems = items
+        .where((item) =>
+            item['tieu de bai dang'] != null &&
+            item['tieu de bai dang']
+                .toLowerCase()
+                .contains(value.toLowerCase()))
+        .toList();
+    print('Here: ${_filteredItems.length}');
+  });
+  print(_filteredItems);
+}
 
   @override
   Widget build(BuildContext context) {

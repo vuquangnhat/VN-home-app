@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:test_thuetro/Screen/diachi.dart';
 import 'package:test_thuetro/savepicture/item_details.dart';
 
 // void main() async {
@@ -28,19 +29,33 @@ class _ListviewRecomandState extends State<ListviewRecomand> {
     super.initState();
     featch();
   }
-
   Future<void> featch() async {
-    QuerySnapshot<Map<String, dynamic>> querySnapshot =
-        await FirebaseFirestore.instance.collection('Post').get();
+  QuerySnapshot<Map<String, dynamic>> querySnapshot =
+      await FirebaseFirestore.instance.collection('Post')
+          .where('Thanh Pho', isEqualTo: 'ĐÀ NẴNG')
+          .get();
 
-    setState(() {
-      items = querySnapshot.docs
-          .map((DocumentSnapshot<Map<String, dynamic>> document) {
-        return document.data()!;
-      }).toList();
-      _filteredItems = items;
-    });
-  }
+  setState(() {
+    items = querySnapshot.docs
+        .map((DocumentSnapshot<Map<String, dynamic>> document) {
+      return document.data()!;
+    }).toList();
+    _filteredItems = items;
+  });
+}
+  // Recomanpost(String value) {
+  //   print(value);
+  //   _filteredItems = List<Map>.from(items);
+  //   setState(() {
+  //     _filteredItems = items
+  //         .where((item) => item['Ten Duong']
+  //             .toLowerCase()
+  //             .contains(value.toLowerCase()))
+  //         .toList();
+  //     print('Here: ${_filteredItems.length}');
+  //   });
+  //   print(_filteredItems);
+  // }
 
   @override
   Widget build(BuildContext context) {
