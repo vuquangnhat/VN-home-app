@@ -576,7 +576,7 @@ class _FliterPageState extends State<FliterPage> {
                         },
                       ),
                       ElevatedButton(onPressed: (){
-                          // Navigator.push(context, MaterialPageRoute(builder: (context) => Pagesearch(tienthue: tienthue,ds_tienich: [ds_tienich],gioitinh: gioitinh,songuoi: songuoi),));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Pagesearch(tienthue: tienthue,ds_tienich: ds_tienich,gioitinh: gioitinh,songuoi: songuoi,loaiphong: typeofhome),));
 
                       }, child: Text('Áp Dụng'))
                 ],

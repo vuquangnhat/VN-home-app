@@ -69,7 +69,7 @@ class _HomeState extends State<Home> {
               dynamic result = await createOrder(amount);
               if (result != null) {
                 print('da thanh toan xong');
-                Navigator.pop(context);
+                // Navigator.pop(context);
                 zpTransToken = result.zptranstoken;
                 setState(() {
                   zpTransToken = result.zptranstoken;
