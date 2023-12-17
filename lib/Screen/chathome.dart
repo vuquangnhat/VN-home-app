@@ -220,7 +220,7 @@ class _ChatHomeState extends State<ChatHome> {
             context,
             MaterialPageRoute(
                 builder: (context) => ChatPage(
-                    name: data["name"],
+                    name: data["Name"],
                     profileurl: data["photo"],
                     username: data["username"])));
       },
@@ -250,7 +250,7 @@ class _ChatHomeState extends State<ChatHome> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      data["name"],
+                      data["Name"],
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -299,9 +299,9 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
     print(username);
     QuerySnapshot querySnapshot =
         await DatabaseMethods().getUserInfo(username.toUpperCase());
-    name = "${querySnapshot.docs[0]["name"]}";
+    name = "${querySnapshot.docs[0]["Name"]}";
     profilePicUrl = "${querySnapshot.docs[0]["photo"]}";
-    id = "${querySnapshot.docs[0]["id"]}";
+    id = "${querySnapshot.docs[0]["user id"]}";
     setState(() {});
   }
 
