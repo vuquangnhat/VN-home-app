@@ -12,7 +12,7 @@ class DatabaseMethods {
   Future<QuerySnapshot> getUserbyemail(String email) async {
     return await FirebaseFirestore.instance
         .collection("Users")
-        .where("email", isEqualTo: email)
+        .where("Email", isEqualTo: email)
         .get();
   }
 
