@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:test_thuetro/chat/screens/login_screen.dart';
 
 
 class ForgotPassword extends StatefulWidget {
@@ -179,10 +180,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => LoginPage()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginScreen()));
                         },
                         child: Text(
                           " Right Here!",

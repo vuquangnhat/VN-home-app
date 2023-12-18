@@ -69,7 +69,7 @@ void getInfoIfUserIdExists(String postUserId) async {
          });
         account_list = userData;
         setState(() {
-          tennguoidang = account_list?['Name'] ?? 'Vũ Quang Nhật';
+          tennguoidang = account_list?['username'] ?? 'Vũ Quang Nhật';
           print(tennguoidang);
         });
       } else {

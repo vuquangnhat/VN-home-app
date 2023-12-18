@@ -4,7 +4,7 @@ import 'package:test_thuetro/zalopay/utils/config.dart';
 import 'package:test_thuetro/zalopay/utils/theme_data.dart';
 
 
-void main() => runApp(App());
+// void main() => runApp(App());
 
 class App extends StatelessWidget {
   @override

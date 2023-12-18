@@ -32,9 +32,10 @@ dependencies:
   http: ^1.1.0
   intl: ^0.18.1
   sprintf: ^7.0.0
-
-
-  
+  get: ^4.6.5
+  rxdart: ^0.27.7
+  modal_progress_hud_nsn: ^0.4.0
+  animated_bottom_navigation_bar: ^1.2.0
 
 dev_dependencies:
   flutter_test:
@@ -45,4 +46,4 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/
+    - assets/logo.jpg

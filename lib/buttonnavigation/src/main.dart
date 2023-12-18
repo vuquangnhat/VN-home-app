@@ -1,9 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:test_thuetro/Screen/homepage.dart';
-
+import '../../Screen/homepage.dart';
 import '../../Screen/thongtin.dart';
+import '../../chat/screens/all_chat_screen.dart';
+import '../../chat/screens/profile_screen.dart';
+
+
 
 // void main() async{
 //     WidgetsFlutterBinding.ensureInitialized();
@@ -32,14 +35,8 @@ class _ExampleState extends State<Example> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     thongtinScreen(),
-    Text(
-      'Chat',
-      style: optionStyle,
-    ),
-    Text(
-      'Profile',
-      style: optionStyle,
-    ),
+    AllChatScreen(),
+    ProfileScreen(),
   ];
 
   @override
