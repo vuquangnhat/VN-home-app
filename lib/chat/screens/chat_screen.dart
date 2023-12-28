@@ -127,21 +127,21 @@ class _ChatScreenState extends State<ChatScreen> {
       child: TextFormField(
         controller: _controller,
         decoration: InputDecoration(
-          hintText: 'Type a message',
+          hintText: 'Nhắn Tin',
           border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(20.0),
             borderSide: const BorderSide(
-              color: Colors.purpleAccent,
+              color: Colors.blue,
               width: 2.0,
             ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(20.0),
             borderSide: const BorderSide(
-              color: Colors.purple,
+              color: Color.fromARGB(255, 253, 253, 253),
               width: 2.0,
             ),
           ),
@@ -154,7 +154,7 @@ class _ChatScreenState extends State<ChatScreen> {
               }
             },
             icon: const Icon(Icons.send),
-            color: Colors.purpleAccent,
+            color: Colors.blue,
           ),
           prefixIcon: IconButton(
             onPressed: () async {
@@ -170,7 +170,7 @@ class _ChatScreenState extends State<ChatScreen> {
               });
             },
             icon: const Icon(Icons.add),
-            color: Colors.purpleAccent,
+            color: Colors.blue,
           ),
         ),
       ),

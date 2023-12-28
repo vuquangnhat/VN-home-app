@@ -36,7 +36,8 @@ class _ExampleState extends State<Example> {
     HomePage(),
     thongtinScreen(),
     AllChatScreen(),
-    ProfileScreen(),
+    // ProfileScreen(),
+    Text('profile'),
   ];
 
   @override
@@ -49,43 +50,43 @@ class _ExampleState extends State<Example> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 248, 248, 249),
+          color: Color.fromARGB(255, 255, 255, 255),
           boxShadow: [
             BoxShadow(
               blurRadius: 20,
-              color: Color.fromARGB(255, 246, 246, 246).withOpacity(.1),
+              color: Color.fromARGB(255, 12, 1, 1).withOpacity(.1),
             )
           ],
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 3),
             child: GNav(
-              rippleColor: Colors.grey[300]!,
+              rippleColor: Color.fromRGBO(196, 189, 217, 0.5),
               hoverColor: Colors.grey[100]!,
               gap: 8,
-              activeColor: Color.fromRGBO(36, 107, 253, 1),
+              activeColor: Color.fromRGBO(0, 3, 8, 1),
               iconSize: 24,
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               duration: Duration(milliseconds: 400),
-              tabBackgroundColor: Colors.grey[100]!,
+              tabBackgroundColor: Color.fromRGBO(196, 189, 217, 0.6),
               color: Color.fromRGBO(205, 203, 203, 1),
               tabs: [
                 GButton(
                   icon: Icons.home,
-                  text: 'TRANG CHỦ',
+                  text: 'Trang Chủ',
                 ),
                 GButton(
                   icon: Icons.post_add_rounded,
-                  text: 'ĐĂNG BÀI',
+                  text: 'Đăng Bài',
                 ),
                 GButton(
                   icon:Icons.chat_outlined,
-                  text: 'CHAT',
+                  text: 'Chat',
                 ),
                 GButton(
                   icon: Icons.person,
-                  text: 'TÀI KHOẢN',
+                  text: 'Tài Khoản',
                 ),
               ],
               selectedIndex: _selectedIndex,

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:test_thuetro/chat/screens/search_friend.dart';
 
 
 import '../widget/user_icon.dart';
@@ -20,10 +21,19 @@ class AddFriendScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Add Friend",
+          "Search Friend",
           style: TextStyle(fontSize: 24),
         ),
         elevation: 0,
+         actions: [
+            IconButton(
+              icon: Icon(Icons.search,size: 30,),
+              onPressed: () {
+                // Điều hướng đến màn hình tìm kiếm khi người dùng nhấn nút tìm kiếm
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Seach_Friend()));
+              },
+            ),
+          ],
       ),
       body: FutureBuilder<QuerySnapshot>(
         future: snapShot.get(),

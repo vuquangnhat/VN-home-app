@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import 'package:rxdart/rxdart.dart';
 import 'package:test_thuetro/chat/screens/add_friend_screen.dart';
+import 'package:test_thuetro/chat/screens/search_friend.dart';
 
 import '../models/friend.dart';
 import '../widget/user_icon.dart';
@@ -33,8 +34,6 @@ class _AllChatScreenState extends State<AllChatScreen> {
     super.initState();
 
     featch().whenComplete(() => fliter);
-
-
   }
 
   Future<void> featch() async {
@@ -50,44 +49,112 @@ class _AllChatScreenState extends State<AllChatScreen> {
       print('du lieu friend $_filteredItems');
     });
   }
-  Future<void> fliter() async{
-    _filteredItems.where((element) => element['user2']);
+
+  Future<void> fliter() async {
+    String uid = user1_id;
+    _filteredItems.where((element) => element['user2'] != uid).toList();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: ListView.builder(
-              itemCount: _filteredItems.length,
-              itemBuilder: (context, index) {
-                final friendDoc = _filteredItems[index];
-                final user2 = friendDoc['user2'];
-                final friendId = user2;
-                final friendName = friendDoc['name2'];
-                final lastMsg = friendDoc['lastMsg'] ?? ' ';
-                final sender = (friendDoc['sender'] == user2);
-                final imageUrl = friendDoc['profile_picture'];
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color.fromRGBO(196, 189, 217, 0.5), Colors.white],
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+          ),
+        ),
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 75, left: 25),
+              child: Container(
+                height: 45,
+                width: 340,
+                child: TextField(
+                  style: TextStyle(
+                    color: const Color(0xff020202),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                    letterSpacing: 0.5,
+                  ),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color(0xfff1f1f1),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide.none,
+                    ),
+                    hintText: "Tìm Kiếm",
+                    hintStyle: TextStyle(
+                        color: const Color(0xffb2b2b2),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: 0.5,
+                        decorationThickness: 6),
+                    prefixIcon: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Seach_Friend()),
+                        );
+                      },
+                      child: Icon(
+                        Icons.search,
+                        size: 30,
+                      ),
+                    ),
+                    prefixIconColor: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 27, left: 30),
+              child: Text(
+                'Đoạn Chat',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 100, right: 10, left: 10),
+              child: ListView.builder(
+                  itemCount: _filteredItems.length,
+                  itemBuilder: (context, index) {
+                    final friendDoc = _filteredItems[index];
+                    final user2 = friendDoc['user2'];
+                    final friendId = user2;
+                    final friendName = friendDoc['name2'];
+                    final lastMsg = friendDoc['lastMsg'] ?? ' ';
+                    final sender = (friendDoc['sender'] == user2);
+                    final imageUrl = friendDoc['profile_picture'];
 
-                return _buildChat(
-                  context,
-                  lastMsg,
-                  friendName,
-                  friendId,
-                  sender,
-                  imageUrl,
-                );
-              })),
+                    return _buildChat(
+                      context,
+                      lastMsg,
+                      friendName,
+                      friendId,
+                      sender,
+                      imageUrl,
+                    );
+                  }),
+            ),
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AddFriendScreen()),
+            MaterialPageRoute(builder: (context) => Seach_Friend()),
           );
           print(user1_id);
           print(query1);
         },
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.search),
       ),
     );
   }
@@ -122,7 +189,8 @@ class _AllChatScreenState extends State<AllChatScreen> {
         leading: UserIcon(size: 25, imageUrl: imageUrl),
         // tileColor: Colors.orange,
         shape: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.purple, width: 2),
+          borderSide:
+              BorderSide(color: Color.fromARGB(255, 245, 245, 245), width: 2),
         ),
         onTap: () {
           Navigator.push(

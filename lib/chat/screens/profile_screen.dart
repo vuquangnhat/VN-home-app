@@ -16,9 +16,9 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  String? name;
+  String name='';
 
-  String? email;
+  String email='';
 
   // String? imageUrl;
 
@@ -29,8 +29,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
 
     User? user = FirebaseAuth.instance.currentUser;
-    name = user!.displayName;
-    email = user.email;
+    name = user!.displayName!;
+    email = user.email!;
     // imageUrl = user!.photoURL;
   }
 
@@ -65,8 +65,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
               const SizedBox(height: 50),
-              _showField(context, "Username", name!),
-              _showField(context, "Email", email!),
+              _showField(context, "Username", name),
+              _showField(context, "Email", email),
               SettingsScreen(),
             ],
           ),

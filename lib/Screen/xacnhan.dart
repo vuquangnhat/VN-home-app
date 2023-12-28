@@ -35,9 +35,9 @@ class _ConformScrennState extends State<ConformScrenn> {
     super.initState();
 
     // Thực hiện các hành động bạn muốn khi màn hình được mở
-    userid = _auth.currentUser?.uid; 
+    userid = _auth.currentUser?.uid;
   }
-   
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -247,6 +247,7 @@ class _ConformScrennState extends State<ConformScrenn> {
                             'Gio mo cua': timeopen.text,
                             'Gio dong cua': timeclose.text,
                             'user id': '${_auth.currentUser?.uid}',
+                            'so lan click': 0,
                           })
                           .then((value) =>
                               print("Success Added ${_auth.currentUser?.uid}"))
@@ -254,8 +255,7 @@ class _ConformScrennState extends State<ConformScrenn> {
                               (error) => print("Failed to add data: $error"));
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => Example()),
+                        MaterialPageRoute(builder: (context) => Example()),
                       );
                     },
                     icon: Icon(Icons.add),

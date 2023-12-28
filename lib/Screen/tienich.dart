@@ -1,15 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:test_thuetro/Screen/xacnhan.dart';
-
-import 'package:test_thuetro/component/checkbox.dart';
 import 'dart:io';
-
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image/image.dart' as img;
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -53,13 +49,14 @@ class _TienichState extends State<Tienich> {
 //   return checkboxList.getCheckboxValues();
 // }
   String imageUrl = '';
-  List<String> imageUrls = [];
+  List<Uint8List> imageUrls = [];
   GlobalKey<FormState> key = GlobalKey();
   CollectionReference _reference =
       FirebaseFirestore.instance.collection('Post');
   List<String> tienich_list = [];
   final ImagePicker imgpicker = ImagePicker();
-  int dem = 0;// dung de thoat khoi vong lap
+  late Uint8List haha;
+  int dem = 0; // dung de thoat khoi vong lap
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,7 +91,7 @@ class _TienichState extends State<Tienich> {
                   return Container(
                     margin: EdgeInsets.all(0),
                     child: Ink.image(
-                      image: FileImage(File(imageUrls[index])),
+                      image: MemoryImage(imageUrls[index]),
                       width: 400,
                       height: 50,
                     ),
@@ -126,15 +123,23 @@ class _TienichState extends State<Tienich> {
                       print('${file?.path}');
                       if (file != null) {
                         setState(() {
-                          imageUrls.add(file.path);
+                          File imageFile = File(file.path);
+                          List<int> imageBytes = imageFile.readAsBytesSync();
+
+                          // Chuyển đổi List<int> thành Uint8List
+                          Uint8List uint8List = Uint8List.fromList(imageBytes);
+                          img.Image? imageExam =
+                              img.decodeImage(Uint8List.fromList(imageBytes));
+                          if (imageExam != null)
+                            haha = img.encodeJpg(imageExam!, quality: 10);
+                          imageUrls.add(haha);
+                          print('do dai2222: ${imageUrls.length}');
                         });
                       } else {
                         print('khong co tam anh nao duoc chon');
                       }
                       for (int i = 0; i < imageUrls.length; i++) {
-                        
-                        if(dem ==1) break;
-                          //Get a reference to storage root
+                        //Get a reference to storage root
                         Reference referenceRoot =
                             FirebaseStorage.instance.ref();
                         //tao duong dan luu tru cho anh tren storage
@@ -145,7 +150,7 @@ class _TienichState extends State<Tienich> {
                         Reference referenceImageToUpload =
                             referenceDirImages.child('$name');
                         //tai hinh anh len stored
-                        await referenceImageToUpload.putFile(File(file!.path));
+                        await referenceImageToUpload.putData(haha);
                         //lay URL
                         imageUrl =
                             await referenceImageToUpload.getDownloadURL();
@@ -154,43 +159,29 @@ class _TienichState extends State<Tienich> {
                           'image_$i': imageUrl,
                         };
                         _reference.doc(widget.documentsend3).update(dataToSend);
+                        //
+                        List<String> imageUrlList = [];
+                        imageUrlList.add(imageUrl);
+
+                        // Update Firestore with the list of image URLs
+                        Map<String, dynamic> dataToSend2 = {
+                          'imageUrls': FieldValue.arrayUnion(imageUrlList),
+                        };
+
+                        _reference
+                            .doc(widget.documentsend3)
+                            .update(dataToSend2);
                         print('them thanh cong ');
                         //Handle errors/success
-                        dem++;
                       }
                       // them vao kieu mang
-                      if (file != null) {
-                        setState(() {
-                          imageUrls.add(file.path);
-                        });
-                      } else {
-                        print('No image selected');
-                      }
-
-                      List<String> imageUrlList = [];
-
-                      for (int i = 0; i < 1; i++) {
-                        Reference referenceRoot =
-                            FirebaseStorage.instance.ref();
-                        Reference referenceDirImages =
-                            referenceRoot.child('images');
-                        String name = DateTime.now().toString();
-                        Reference referenceImageToUpload =
-                            referenceDirImages.child('$name');
-
-                        await referenceImageToUpload.putFile(File(file!.path));
-
-                        imageUrl =
-                            await referenceImageToUpload.getDownloadURL();
-                        imageUrlList.add(imageUrl);
-                      }
-
-                      // Update Firestore with the list of image URLs
-                      Map<String, dynamic> dataToSend = {
-                        'imageUrls': FieldValue.arrayUnion(imageUrlList),
-                      };
-
-                      _reference.doc(widget.documentsend3).update(dataToSend);
+                      // if (file != null) {
+                      //   setState(() {
+                      //     imageUrls.add(file.path);
+                      //   });
+                      // } else {
+                      //   print('No image selected');
+                      // }
 
                       print('Images uploaded successfully');
                     },
@@ -266,17 +257,26 @@ class _TienichState extends State<Tienich> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                OutlinedButton(
-                    onPressed: () async {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ConformScrenn(
-                                  documentsend4: widget.documentsend3,
-                                )),
-                      );
-                    },
-                    child: Text('Tiếp Theo')),
+                Container(
+                  width: 300,
+                  height: 40,
+                  child: ElevatedButton(
+                      onPressed: () async {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ConformScrenn(
+                                    documentsend4: widget.documentsend3,
+                                  )),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shadowColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                      ),
+                      child: Text('Tiếp Theo')),
+                ),
               ],
             )
           ],

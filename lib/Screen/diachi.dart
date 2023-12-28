@@ -21,7 +21,6 @@ class DiachiScreen extends StatefulWidget {
 
   DiachiScreen({required this.documentsend2, super.key});
 
- 
   @override
   State<DiachiScreen> createState() => _DiachiScreenState();
 }
@@ -30,8 +29,7 @@ class _DiachiScreenState extends State<DiachiScreen> {
   String dropdownValue = list.first;
   final TextEditingController tenduongctl = TextEditingController();
   final TextEditingController sonhactl = TextEditingController();
-   CollectionReference Post1 =
-                                FirebaseFirestore.instance.collection('Post');
+  CollectionReference Post1 = FirebaseFirestore.instance.collection('Post');
   String get selectedDropdownValue => dropdownValue;
   @override
   Widget build(BuildContext context) {
@@ -41,7 +39,6 @@ class _DiachiScreenState extends State<DiachiScreen> {
           SizedBox(
             height: 50,
           ),
-
           Center(
               child: Text(
             'Đăng Phòng',
@@ -192,26 +189,35 @@ class _DiachiScreenState extends State<DiachiScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              OutlinedButton(
-                  onPressed: ()async {
-                            await Post1.doc(widget.documentsend2)
-                                .update({
-                                  'Thanh Pho': dropdownValue.toString(),
-                                  'Ten Duong': tenduongctl.text,
-                                  'So Nha': sonhactl.text,
-                                })
-                                .then((value) => print("Success Added"))
-                                .catchError((error) =>
-                                    print("Failed to add data: $error"));
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Tienich(
-                            documentsend3: widget.documentsend2,
-                              )),
-                    );
-                  },
-                  child: Text('Tiếp Theo'))
+              Container(
+                width: 300,
+                height: 40,
+                child: ElevatedButton(
+                    onPressed: () async {
+                      await Post1.doc(widget.documentsend2)
+                          .update({
+                            'Thanh Pho': dropdownValue.toString(),
+                            'Ten Duong': tenduongctl.text,
+                            'So Nha': sonhactl.text,
+                          })
+                          .then((value) => print("Success Added"))
+                          .catchError(
+                              (error) => print("Failed to add data: $error"));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Tienich(
+                                  documentsend3: widget.documentsend2,
+                                )),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shadowColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                    ),
+                    child: Text('Tiếp Theo')),
+              )
             ],
           )
         ]),

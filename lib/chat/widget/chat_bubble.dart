@@ -45,9 +45,9 @@ class ChatBubble extends StatelessWidget {
               color: _getBackGroundColor(),
               borderRadius: BorderRadius.only(
                 topLeft: const Radius.circular(22),
-                topRight: const Radius.circular(22),
-                bottomLeft: Radius.circular((friend) ? 0.0 : 22),
-                bottomRight: Radius.circular((friend) ? 22 : 0.0),
+                topRight: const Radius.circular(0),
+                bottomLeft: Radius.circular((friend) ? 22 : 0.0),
+                bottomRight: Radius.circular((friend) ? 0.0 : 22),
               ),
             ),
             child: Column(
@@ -58,6 +58,13 @@ class ChatBubble extends StatelessWidget {
                             () => ImageScreen(imgUrl: imageUrl!),
                             transition: Transition.topLevel,
                           ),
+                      // onTap: () {
+                      //        Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => ImageScreen(imgUrl: imageUrl!,)),
+                      //   );
+                      // },
                       child: Image.network(imageUrl!)),
                 if (imageUrl == null)
                   Text(
@@ -89,18 +96,18 @@ class ChatBubble extends StatelessWidget {
 
   Color _getBackGroundColor() {
     if (friend) {
-      return Colors.purple;
+      return Colors.blue;
     }
-    return Colors.grey;
+    return Color.fromRGBO(133, 133, 133, 1);
   }
 
   Alignment _getAlignment() {
-    if (friend) return Alignment.centerLeft;
-    return Alignment.centerRight;
+    if (friend) return Alignment.centerRight;
+    return Alignment.centerLeft;
   }
 
   CrossAxisAlignment _getCrossAxisAlignment() {
-    if (friend) return CrossAxisAlignment.start;
-    return CrossAxisAlignment.end;
+    if (friend) return CrossAxisAlignment.end;
+    return CrossAxisAlignment.start;
   }
 }

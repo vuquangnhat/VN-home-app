@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:test_thuetro/Screen/homepage.dart';
 import '../../buttonnavigation/src/main.dart';
@@ -117,13 +116,13 @@ class _LoginScreenState extends State<LoginScreen> {
           },
           child: Text(
             "Sign up",
-            style: GoogleFonts.inter(
-              textStyle: const TextStyle(
+            style: 
+              const TextStyle(
                 fontSize: 14,
                 color: Colors.purple,
                 fontWeight: FontWeight.bold,
               ),
-            ),
+          
           ),
         ),
       ],
