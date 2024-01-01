@@ -31,6 +31,7 @@ class _ListviewSearchState extends State<ListviewSearch>
     with AutomaticKeepAliveClientMixin {
   List<Map> _filteredItems = [];
   List<Map> items = [];
+  List<Map> searchonfliter = [];
 
   @override
   bool get wantKeepAlive => true;
@@ -58,44 +59,48 @@ class _ListviewSearchState extends State<ListviewSearch>
     setState(() {
       _filteredItems = _filteredItems
           .where((item) =>
-              item['LoaiPhong']
-                  .toLowerCase()
-                  .contains('${widget.loaiphong}'.toLowerCase()) &&
+              (item['LoaiPhong']
+                      .toLowerCase()
+                      .contains('${widget.loaiphong}'.toLowerCase()) ??
+                  true) &&
               (widget.ds_tienich.isNotEmpty
                   ? item['tienich_list'].any((item2) => widget.ds_tienich
                       .any((element) => element.toString() == item2))
                   : true) &&
-              double.parse(item['Giachothue']) <= widget.tienthue)
+              (double.parse(item['Giachothue']) <= widget.tienthue) &&
+              (int.parse(item['SucChua']) <= widget.songuoi) &&
+              (item['GioiTinh'] == widget.gioitinh))
           .toList();
 
       _filteredItems.forEach(
         (element) => print('here1: ${element['LoaiPhong']}'),
       );
-      print('Here: ${_filteredItems.length}');
+      searchonfliter = List.from(_filteredItems);
+
+      // print('Here: ${_filteredItems.length}');
     });
     print(_filteredItems);
   }
 
   search(String value) {
     print(value);
-
+    searchonfliter = List.from(_filteredItems);
     setState(() {
-      _filteredItems = items
+      print('danh sach sau khi loc: ${searchonfliter}');
+      searchonfliter = searchonfliter
           .where((item) =>
-              item['tieu de bai dang'] != null &&
-              item['tieu de bai dang']
-                  .toLowerCase()
-                  .contains(value.toLowerCase()))
+              item['Thanh Pho'] != null &&
+              item['Thanh Pho'].toLowerCase().contains(value.toLowerCase()))
           .toList();
-      print('Here: ${_filteredItems.length}');
+      print('Here: ${searchonfliter.length}');
     });
-    print(_filteredItems);
+    print(searchonfliter);
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-          decoration: BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [Color.fromRGBO(196, 189, 217, 0.5), Colors.white],
           begin: Alignment.topRight,
@@ -176,7 +181,7 @@ class _ListviewSearchState extends State<ListviewSearch>
                     itemCount: _filteredItems.length,
                     itemBuilder: (BuildContext context, int index) {
                       Map thisItem = _filteredItems[index];
-    
+
                       if (thisItem['image_0'] != null &&
                           thisItem['image_0'] is String) {
                         return GestureDetector(

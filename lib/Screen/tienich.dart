@@ -79,7 +79,7 @@ class _TienichState extends State<Tienich> {
               ],
             ),
             SizedBox(
-              height: 100,
+              height: 50,
             ),
             Container(
               height: 200,
@@ -100,7 +100,7 @@ class _TienichState extends State<Tienich> {
               ),
             ),
             SizedBox(
-              height: 50,
+              height: 0,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

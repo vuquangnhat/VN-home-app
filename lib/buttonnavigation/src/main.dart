@@ -1,12 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import '../../Screen/accountpage.dart';
 import '../../Screen/homepage.dart';
 import '../../Screen/thongtin.dart';
 import '../../chat/screens/all_chat_screen.dart';
 import '../../chat/screens/profile_screen.dart';
-
-
 
 // void main() async{
 //     WidgetsFlutterBinding.ensureInitialized();
@@ -37,14 +36,13 @@ class _ExampleState extends State<Example> {
     thongtinScreen(),
     AllChatScreen(),
     // ProfileScreen(),
-    Text('profile'),
+    AccountScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 247, 246, 246),
-
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
@@ -65,28 +63,49 @@ class _ExampleState extends State<Example> {
               rippleColor: Color.fromRGBO(196, 189, 217, 0.5),
               hoverColor: Colors.grey[100]!,
               gap: 8,
-              activeColor: Color.fromRGBO(0, 3, 8, 1),
+              activeColor: Color.fromRGBO(0, 0, 0, 1), //màu chữ khi hoạt động
               iconSize: 24,
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               duration: Duration(milliseconds: 400),
-              tabBackgroundColor: Color.fromRGBO(196, 189, 217, 0.6),
-              color: Color.fromRGBO(205, 203, 203, 1),
+              tabBackgroundColor:
+                  Color.fromRGBO(162, 198, 252, 1), //màu lúc đucowj chọn
+              color: Color.fromRGBO(205, 203, 203, 1), //màu lúc chưa hoạt động
               tabs: [
                 GButton(
                   icon: Icons.home,
                   text: 'Trang Chủ',
+                    textStyle: TextStyle(
+                    fontSize: 12,
+                    fontWeight:  FontWeight.bold // Điều chỉnh giá trị theo ý muốn
+                    // Các thuộc tính khác của TextStyle nếu cần
+                  ),
                 ),
                 GButton(
-                  icon: Icons.post_add_rounded,
+                  icon: Icons.local_post_office,
                   text: 'Đăng Bài',
+                    textStyle: TextStyle(
+                    fontSize: 12,
+                    fontWeight:  FontWeight.bold // Điều chỉnh giá trị theo ý muốn
+                    // Các thuộc tính khác của TextStyle nếu cần
+                  ),
                 ),
                 GButton(
-                  icon:Icons.chat_outlined,
+                  icon: Icons.chat_bubble,
                   text: 'Chat',
+                  textStyle: TextStyle(
+                    fontSize: 12,
+                    fontWeight:  FontWeight.bold // Điều chỉnh giá trị theo ý muốn
+                    // Các thuộc tính khác của TextStyle nếu cần
+                  ),
                 ),
                 GButton(
                   icon: Icons.person,
                   text: 'Tài Khoản',
+                    textStyle: TextStyle(
+                    fontSize: 12,
+                    fontWeight:  FontWeight.bold // Điều chỉnh giá trị theo ý muốn
+                    // Các thuộc tính khác của TextStyle nếu cần
+                  ),
                 ),
               ],
               selectedIndex: _selectedIndex,

@@ -5,15 +5,15 @@ import 'package:test_thuetro/Screen/Pagesearch.dart';
 
 import 'listviewsearch.dart';
 
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp();
-//   runApp(MaterialApp(
-//     debugShowCheckedModeBanner: false,
-//     color: Colors.white,
-//     home: FliterPage(),
-//   ));
-// }
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    color: Colors.white,
+    home  : FliterPage(),
+  ));
+}
 
 class FliterPage extends StatefulWidget {
   const FliterPage({super.key});
@@ -24,7 +24,7 @@ class FliterPage extends StatefulWidget {
 
 class _FliterPageState extends State<FliterPage> {
   double tienthue = 0;
-  double min = 0;
+  double min = 0; 
   double max = 10;
   bool wc_state = false;
   bool an_state = false;
@@ -222,7 +222,7 @@ class _FliterPageState extends State<FliterPage> {
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color.fromRGBO(196, 189, 217, 0.5), Colors.white],
+              colors: [Colors.white, Colors.white],
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
             ),

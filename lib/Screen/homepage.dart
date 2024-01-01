@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      decoration: BoxDecoration(color: Colors.white),
+      decoration: BoxDecoration(color: Color.fromARGB(255, 247, 246, 246)),
       child: Stack(
         children: [
           Padding(
@@ -62,11 +62,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               children: [
                 Text(
                   'Chào, ',
-                  style: TextStyle(fontSize: 20,color: Colors.blue),
+                  style: TextStyle(fontSize: 18,color: Color.fromARGB(255, 0, 0, 0)),
                 ),
                 Text(
                   'Nhật',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.blue),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: const Color.fromARGB(255, 0, 0, 0)),
                 ),
                 SizedBox(width: 200),
                 Container(
@@ -86,18 +86,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               height: 150,
               width: double.infinity,
               decoration: BoxDecoration(
-                  color: Color.fromRGBO(36, 107, 253, 1),
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(20)),
               child: Center(
-                  child: Text('Vn Home',
-                      style: GoogleFonts.roboto(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 40,
-                          color: Colors.white))),
+                  child: Image.asset('assets/vnhome.jpg')),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 280, left: 0),
+            padding: const EdgeInsets.only(top: 290, left: 0),
             child: Container(
               width: double.infinity,
               height: 800,
@@ -158,7 +154,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       SingleChildScrollView(
                         child: Container(
                           height: 500,
-                          decoration: BoxDecoration(color: Colors.white),
+                          decoration: BoxDecoration(color: Colors.transparent),
                           child: Stack(
                             children: [
                               Padding(
@@ -384,7 +380,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
                               Padding(
                                 padding:
-                                    const EdgeInsets.only(left: 10, top: 250),
+                                    const EdgeInsets.only(left: 10, top: 230),
                                 child: GestureDetector(
                                   onTap: () {
                                     Navigator.push(
@@ -496,7 +492,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
                               Padding(
                                 padding:
-                                    const EdgeInsets.only(left: 200, top: 250),
+                                    const EdgeInsets.only(left: 200, top: 230),
                                 child: GestureDetector(
                                   onTap: () {
                                     print('object2');
@@ -608,13 +604,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       Container(
                           height: 500,
                           decoration: BoxDecoration(
-                              color: Color.fromRGBO(196, 189, 217, 0.2)),
+                              color: Colors.transparent),
                           child: Listviewhorizotal()),
                       //de xuat cho ban
                       Container(
                           height: 500,
                           decoration: BoxDecoration(
-                              color: Color.fromRGBO(196, 189, 217, 0.2)),
+                              color: Colors.transparent),
                           child: Listviewrecomand()),
                     ],
                   ),

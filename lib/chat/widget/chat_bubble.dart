@@ -45,7 +45,7 @@ class ChatBubble extends StatelessWidget {
               color: _getBackGroundColor(),
               borderRadius: BorderRadius.only(
                 topLeft: const Radius.circular(22),
-                topRight: const Radius.circular(0),
+                topRight: const Radius.circular(22),
                 bottomLeft: Radius.circular((friend) ? 22 : 0.0),
                 bottomRight: Radius.circular((friend) ? 0.0 : 22),
               ),

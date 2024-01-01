@@ -60,11 +60,7 @@ class _AllChatScreenState extends State<AllChatScreen> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color.fromRGBO(196, 189, 217, 0.5), Colors.white],
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-          ),
+          color: Colors.white
         ),
         child: Stack(
           children: [
