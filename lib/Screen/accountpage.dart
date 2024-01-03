@@ -3,6 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
+import 'package:test_thuetro/Screen/reservationpage.dart';
+
+import 'bookmyroom.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -265,99 +268,117 @@ class _AccountScreenState extends State<AccountScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 10, top: 20,right: 10),
-                  child: Container(
-                    height: 60,
-                    width: 380,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color:
-                              Colors.black.withOpacity(0.1), // Màu của shadow
-                          spreadRadius: 2, // Bán kính lan rộng của shadow
-                          blurRadius: 5, // Độ mờ của shadow
-                          offset: Offset(0, 3), // Độ dịch chuyển của shadow
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.feedback,
-                          size: 40,
-                          color: Colors.blue,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Text(
-                            'Phản Hồi',
-                            style: TextStyle(
-                                fontSize: 17, fontWeight: FontWeight.bold),
+                  child: GestureDetector(
+                    onTap: () {
+                             Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Bookmyroom()),
+                            );
+                    },
+                    child: Container(
+                      height: 60,
+                      width: 380,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color:
+                                Colors.black.withOpacity(0.1), // Màu của shadow
+                            spreadRadius: 2, // Bán kính lan rộng của shadow
+                            blurRadius: 5, // Độ mờ của shadow
+                            offset: Offset(0, 3), // Độ dịch chuyển của shadow
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5, left: 188),
-                          child: Icon(
-                            Icons.navigate_next_outlined,
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.book,
                             size: 40,
                             color: Colors.blue,
                           ),
-                        )
-                      ],
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Text(
+                              'Phòng Của Bạn Được Đặt',
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5, left: 25),
+                            child: Icon(
+                              Icons.navigate_next_outlined,
+                              size: 40,
+                              color: Colors.blue,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 10, top: 20,right: 10),
-                  child: Container(
-                    height: 60,
-                    width: 380,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color:
-                              Colors.black.withOpacity(0.1), // Màu của shadow
-                          spreadRadius: 2, // Bán kính lan rộng của shadow
-                          blurRadius: 5, // Độ mờ của shadow
-                          offset: Offset(0, 3), // Độ dịch chuyển của shadow
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.attach_money_rounded,
-                          size: 40,
-                          color: Colors.blue,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Text(
-                            'Ủng Hộ',
-                            style: TextStyle(
-                                fontSize: 17, fontWeight: FontWeight.bold),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ReservationPage()),
+                            );
+                    },
+                    child: Container(
+                      height: 60,
+                      width: 380,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color:
+                                Colors.black.withOpacity(0.1), // Màu của shadow
+                            spreadRadius: 2, // Bán kính lan rộng của shadow
+                            blurRadius: 5, // Độ mờ của shadow
+                            offset: Offset(0, 3), // Độ dịch chuyển của shadow
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5, left: 200),
-                          child: Icon(
-                            Icons.navigate_next_outlined,
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.list_alt,
                             size: 40,
                             color: Colors.blue,
                           ),
-                        )
-                      ],
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Text(
+                              'Danh Sách Phòng Đã Đặt',
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5, left: 28),
+                            child: Icon(
+                              Icons.navigate_next_outlined,
+                              size: 40,
+                              color: Colors.blue,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

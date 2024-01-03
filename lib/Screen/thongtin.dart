@@ -606,7 +606,7 @@ class _thongtinScreenState extends State<thongtinScreen> {
                                             'tiennuoc': tiennuocctl.text,
                                             'Cho de xe': chodexe,
                                             'so lan click':
-                                                solanclik.toString(),
+                                                solanclik,
                                           })
                                           .then(
                                               (value) => print("Success Added"))

@@ -62,6 +62,18 @@ class _ItemDetailsState extends State<ItemDetails>
       print(getURL(address));
     } catch (err) {}
   }
+void incrementSoLanClick(String postId) async {
+  try {
+    await FirebaseFirestore.instance
+        .collection('Post')
+        .doc(postId)
+        .update({'so lan click': FieldValue.increment(1)});
+        
+    print('Đã tăng trường so lan click thành công');
+  } catch (error) {
+    print('Đã xảy ra lỗi khi tăng trường so lan click: $error');
+  }
+}
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -141,6 +153,9 @@ class _ItemDetailsState extends State<ItemDetails>
     gettienichlistfromfirebase();
     get_image_list_from_firebase();
     getInfoIfUserIdExists(widget.itemId);
+    incrementSoLanClick(widget.itemId);
+    setState(() {
+    });
   }
 
   @override
@@ -1007,7 +1022,7 @@ class _ItemDetailsState extends State<ItemDetails>
                                                                                   await Reservation.doc(widget.itemId)
                                                                                       .set({
                                                                                         'Id nguoi dat': _auth.currentUser!.uid,
-                                                                                        'Dia chi': '${data['So Nha']} ${data['Ten Duong']}, ${data['Thanh Pho']}',
+                                                                                        'Dia chi': '${data['So Nha']} ${data['Ten Duong']}}',
                                                                                         'Ten nguoi dat': hovaten.text,
                                                                                         'Ngay dat hen' : _dateController.text,
                                                                                         'Id nguoi dang bai': userId,

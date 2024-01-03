@@ -5,7 +5,7 @@ import '../../Screen/accountpage.dart';
 import '../../Screen/homepage.dart';
 import '../../Screen/thongtin.dart';
 import '../../chat/screens/all_chat_screen.dart';
-import '../../chat/screens/profile_screen.dart';
+
 
 // void main() async{
 //     WidgetsFlutterBinding.ensureInitialized();

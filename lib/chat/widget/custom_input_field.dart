@@ -25,7 +25,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         validator: (val) {
-          if (val == null || val.isEmpty) return 'This field is required';
+          if (val == null || val.isEmpty) return 'Vui Lòng Nhập Đầy Đủ Thông Tin';
         },
         obscureText: widget.obscure ?? false,
         onChanged: widget.onChanged,
@@ -38,14 +38,14 @@ class _CustomInputFieldState extends State<CustomInputField> {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
             borderSide: const BorderSide(
-              color: Colors.purpleAccent,
+              color: Colors.grey,
               width: 2.0,
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
             borderSide: const BorderSide(
-              color: Colors.purple,
+              color: Colors.grey,
               width: 2.0,
             ),
           ),

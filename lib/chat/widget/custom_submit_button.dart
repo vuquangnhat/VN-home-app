@@ -19,11 +19,11 @@ class CustomSubmitButton extends StatelessWidget {
           onTap: onTap,
           child: Container(
             margin: const EdgeInsets.all(16.0),
-            width: 130,
+            width: 250,
             height: 40,
             decoration: BoxDecoration(
-              color: Colors.purple,
-              borderRadius: BorderRadius.circular(18),
+              color: Color.fromRGBO(36, 107, 253, 1),
+              borderRadius: BorderRadius.circular(10),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -31,7 +31,7 @@ class CustomSubmitButton extends StatelessWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 15,
                     color: Colors.white,
                   ),
                 ),

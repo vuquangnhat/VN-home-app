@@ -59,16 +59,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           Padding(
             padding: const EdgeInsets.only(top: 65.0, left: 10),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   'Chào, ',
-                  style: TextStyle(fontSize: 18,color: Color.fromARGB(255, 0, 0, 0)),
+                  style: TextStyle(
+                      fontSize: 18, color: Color.fromARGB(255, 0, 0, 0)),
                 ),
                 Text(
                   'Nhật',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: const Color.fromARGB(255, 0, 0, 0)),
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: const Color.fromARGB(255, 0, 0, 0)),
                 ),
-                SizedBox(width: 200),
+                SizedBox(width: 220),
                 Container(
                     height: 40,
                     width: 50,
@@ -86,10 +91,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               height: 150,
               width: double.infinity,
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20)),
-              child: Center(
-                  child: Image.asset('assets/vnhome.jpg')),
+                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
+              child: Center(child: Image.asset('assets/vnhome.jpg')),
             ),
           ),
           Padding(
@@ -133,18 +136,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ),
                     ),
                   ],
-                indicator: BoxDecoration(
-  borderRadius: BorderRadius.circular(10),
-  boxShadow: [
-    BoxShadow(
-      color: Colors.grey.withOpacity(0.5),
-      spreadRadius: 2,
-      blurRadius: 5,
-      offset: Offset(0, 3),
-    ),
-  ],
-  color: Colors.white,
-),
+                  indicator: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                    color: Colors.white,
+                  ),
                 ),
                 Expanded(
                   child: TabBarView(
@@ -154,447 +157,535 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       SingleChildScrollView(
                         child: Container(
                           height: 500,
-                          decoration: BoxDecoration(color: Colors.transparent),
+                          decoration: BoxDecoration(
+                              color: Colors.transparent),
                           child: Stack(
                             children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, top: 20),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Searchtitle()),
-                                    );
-                                    print('object');
-                                  },
-                                  child: Container(
-                                    height: 200,
-                                    width: 180,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(30),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          spreadRadius: 2,
-                                          blurRadius: 5,
-                                          offset: Offset(0,
-                                              3), // Chỉnh độ lệch của shadow theo trục x và y
-                                        ),
-                                      ],
-                                    ),
-                                    child: Column(children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(15.0),
-                                            child: Icon(Icons.search,
-                                                size: 45,
-                                                color: Color.fromRGBO(
-                                                    196, 189, 217, 1)),
-                                          ),
-                                          Icon(
-                                            Icons.flash_on,
-                                            size: 25,
-                                            color: Colors.grey,
-                                          )
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 0, left: 15),
-                                            child: Text(
-                                              'Tìm Kiếm Trọ',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 0, left: 15),
-                                            child: Text(
-                                              'Nhanh chóng',
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors.grey),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 0, left: 15),
-                                            child: Text(
-                                              '______________________',
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors.grey),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 0, left: 15),
-                                            child: Container(
-                                              width: 150,
-                                              child: ElevatedButton(
-                                                onPressed: () {},
-                                                child: Icon(Icons.search),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 0, top: 20),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Searchtitle()),
+                                        );
+                                        print('object');
+                                      },
+                                      child: Flexible(
+                                        child: Container(
+                                          height: 200,
+                                          width: 180,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey
+                                                    .withOpacity(0.5),
+                                                spreadRadius: 2,
+                                                blurRadius: 5,
+                                                offset: Offset(0,
+                                                    3), // Chỉnh độ lệch của shadow theo trục x và y
                                               ),
-                                            ),
+                                            ],
                                           ),
-                                        ],
+                                          child: Column(children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(
+                                                          15.0),
+                                                  child: Icon(Icons.search,
+                                                      size: 45,
+                                                      color: Color.fromRGBO(
+                                                          196,
+                                                          189,
+                                                          217,
+                                                          1)),
+                                                ),
+                                                Icon(
+                                                  Icons.flash_on,
+                                                  size: 25,
+                                                  color: Colors.grey,
+                                                )
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 0, left: 15),
+                                                  child: Text(
+                                                    'Tìm Kiếm Trọ',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight
+                                                                .bold),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 0, left: 15),
+                                                  child: Text(
+                                                    'Nhanh chóng',
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        color: Colors.grey),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 0, left: 15),
+                                                  child: Text(
+                                                    '______________________',
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        color: Colors.grey),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 0, left: 15),
+                                                  child: Container(
+                                                    width: 150,
+                                                    child: ElevatedButton(
+                                                      onPressed: () {},
+                                                      child: Icon(
+                                                          Icons.search),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ]),
+                                        ),
                                       ),
-                                    ]),
+                                    ),
                                   ),
-                                ),
+                                  //
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 0, top: 20),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AllChatScreen()),
+                                        );
+                                      },
+                                      child: Flexible(
+                                        child: Container(
+                                          height: 200,
+                                          width: 180,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey
+                                                    .withOpacity(0.5),
+                                                spreadRadius: 2,
+                                                blurRadius: 5,
+                                                offset: Offset(0,
+                                                    3), // Chỉnh độ lệch của shadow theo trục x và y
+                                              ),
+                                            ],
+                                          ),
+                                          child: Column(children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(
+                                                          15.0),
+                                                  child: Icon(
+                                                      Icons.chat_bubble,
+                                                      size: 45,
+                                                      color: Color.fromRGBO(
+                                                          196,
+                                                          189,
+                                                          217,
+                                                          1)),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(
+                                                          8.0),
+                                                  child: Icon(
+                                                    Icons.speed,
+                                                    size: 25,
+                                                    color: Colors.grey,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 0, left: 15),
+                                                  child: Text(
+                                                    'Chat',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight
+                                                                .bold),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 0, left: 15),
+                                                  child: Text(
+                                                    'Dễ Dàng',
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        color: Colors.grey),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 0, left: 15),
+                                                  child: Text(
+                                                    '______________________',
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        color: Colors.grey),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 0, left: 15),
+                                                  child: Container(
+                                                    width: 150,
+                                                    child: ElevatedButton(
+                                                      onPressed: () {},
+                                                      child: Icon(Icons
+                                                          .chat_bubble),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ]),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                               //
-
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 200, top: 20),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              AllChatScreen()),
-                                    );
-                                  },
-                                  child: Container(
-                                    height: 200,
-                                    width: 180,
-                                 decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(30),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          spreadRadius: 2,
-                                          blurRadius: 5,
-                                          offset: Offset(0,
-                                              3), // Chỉnh độ lệch của shadow theo trục x và y
-                                        ),
-                                      ],
-                                    ),
-                                    child: Column(children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(15.0),
-                                            child: Icon(Icons.chat_bubble,
-                                                size: 45,
-                                                color: Color.fromRGBO(
-                                                    196, 189, 217, 1)),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Icon(
-                                              Icons.speed,
-                                              size: 25,
-                                              color: Colors.grey,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 0, left: 15),
-                                            child: Text(
-                                              'Chat',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 0, left: 15),
-                                            child: Text(
-                                              'Dễ Dàng',
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors.grey),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 0, left: 15),
-                                            child: Text(
-                                              '______________________',
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors.grey),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 0, left: 15),
-                                            child: Container(
-                                              width: 150,
-                                              child: ElevatedButton(
-                                                onPressed: () {},
-                                                child: Icon(Icons.chat_bubble),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 0, top: 230),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  thongtinScreen()),
+                                        );
+                                        print('object3');
+                                      },
+                                      child: Flexible(
+                                        child: Container(
+                                          height: 200,
+                                          width: 180,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey
+                                                    .withOpacity(0.5),
+                                                spreadRadius: 2,
+                                                blurRadius: 5,
+                                                offset: Offset(0,
+                                                    3), // Chỉnh độ lệch của shadow theo trục x và y
                                               ),
-                                            ),
+                                            ],
                                           ),
-                                        ],
+                                          child: Column(children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(
+                                                          15.0),
+                                                  child: Icon(Icons.add_box,
+                                                      size: 45,
+                                                      color: Color.fromRGBO(
+                                                          196,
+                                                          189,
+                                                          217,
+                                                          1)),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(
+                                                          8.0),
+                                                  child: Icon(
+                                                    Icons.image,
+                                                    size: 25,
+                                                    color: Colors.grey,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 0, left: 15),
+                                                  child: Text(
+                                                    'Đăng Bài',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight
+                                                                .bold),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 0, left: 15),
+                                                  child: Text(
+                                                    'Ngay Lập Tức',
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        color: Colors.grey),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 0, left: 15),
+                                                  child: Text(
+                                                    '______________________',
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        color: Colors.grey),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 0, left: 15),
+                                                  child: Container(
+                                                    width: 150,
+                                                    child: ElevatedButton(
+                                                      onPressed: () {},
+                                                      child: Icon(
+                                                          Icons.add_box),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ]),
+                                        ),
                                       ),
-                                    ]),
+                                    ),
                                   ),
-                                ),
+                                  //
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 0, top: 230),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        print('object2');
+                                      },
+                                      child: Flexible(
+                                        child: Container(
+                                          height: 200,
+                                          width: 180,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey
+                                                    .withOpacity(0.5),
+                                                spreadRadius: 2,
+                                                blurRadius: 5,
+                                                offset: Offset(0,
+                                                    3), // Chỉnh độ lệch của shadow theo trục x và y
+                                              ),
+                                            ],
+                                          ),
+                                          child: Column(children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(
+                                                          15.0),
+                                                  child: Icon(
+                                                      Icons.person_2,
+                                                      size: 45,
+                                                      color: Color.fromRGBO(
+                                                          196,
+                                                          189,
+                                                          217,
+                                                          1)),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(
+                                                          8.0),
+                                                  child: Icon(
+                                                    Icons.speed,
+                                                    size: 25,
+                                                    color: Colors.grey,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 0, left: 15),
+                                                  child: Text(
+                                                    'Tài Khoản',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight
+                                                                .bold),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 0, left: 15),
+                                                  child: Text(
+                                                    'Tiện Ích',
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        color: Colors.grey),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 0, left: 15),
+                                                  child: Text(
+                                                    '______________________',
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        color: Colors.grey),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 0, left: 15),
+                                                  child: Container(
+                                                    width: 150,
+                                                    child: ElevatedButton(
+                                                      onPressed: () {},
+                                                      child: Icon(
+                                                          Icons.person_pin),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ]),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
-                              //
-
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, top: 230),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              thongtinScreen()),
-                                    );
-                                    print('object3');
-                                  },
-                                  child: Container(
-                                    height: 200,
-                                    width: 180,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(30),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          spreadRadius: 2,
-                                          blurRadius: 5,
-                                          offset: Offset(0,
-                                              3), // Chỉnh độ lệch của shadow theo trục x và y
-                                        ),
-                                      ],
-                                    ),
-                                    child: Column(children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(15.0),
-                                            child: Icon(Icons.add_box,
-                                                size: 45,
-                                                color: Color.fromRGBO(
-                                                    196, 189, 217, 1)),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Icon(
-                                              Icons.image,
-                                              size: 25,
-                                              color: Colors.grey,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 0, left: 15),
-                                            child: Text(
-                                              'Đăng Bài',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 0, left: 15),
-                                            child: Text(
-                                              'Ngay Lập Tức',
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors.grey),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 0, left: 15),
-                                            child: Text(
-                                              '______________________',
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors.grey),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 0, left: 15),
-                                            child: Container(
-                                              width: 150,
-                                              child: ElevatedButton(
-                                                onPressed: () {},
-                                                child: Icon(Icons.add_box),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ]),
-                                  ),
-                                ),
-                              ),
-
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 200, top: 230),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    print('object2');
-                                  },
-                                  child: Container(
-                                    height: 200,
-                                    width: 180,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(30),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          spreadRadius: 2,
-                                          blurRadius: 5,
-                                          offset: Offset(0,
-                                              3), // Chỉnh độ lệch của shadow theo trục x và y
-                                        ),
-                                      ],
-                                    ),
-                                    child: Column(children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(15.0),
-                                            child: Icon(Icons.person_2,
-                                                size: 45,
-                                                color: Color.fromRGBO(
-                                                    196, 189, 217, 1)),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Icon(
-                                              Icons.speed,
-                                              size: 25,
-                                              color: Colors.grey,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 0, left: 15),
-                                            child: Text(
-                                              'Tài Khoản',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 0, left: 15),
-                                            child: Text(
-                                              'Tiện Ích',
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors.grey),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 0, left: 15),
-                                            child: Text(
-                                              '______________________',
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors.grey),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 0, left: 15),
-                                            child: Container(
-                                              width: 150,
-                                              child: ElevatedButton(
-                                                onPressed: () {},
-                                                child: Icon(Icons.person_pin),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ]),
-                                  ),
-                                ),
-                              )
                             ],
                           ),
                         ),
@@ -603,14 +694,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       //xu huong
                       Container(
                           height: 500,
-                          decoration: BoxDecoration(
-                              color: Colors.transparent),
+                          decoration: BoxDecoration(color: Colors.transparent),
                           child: Listviewhorizotal()),
                       //de xuat cho ban
                       Container(
                           height: 500,
-                          decoration: BoxDecoration(
-                              color: Colors.transparent),
+                          decoration: BoxDecoration(color: Colors.transparent),
                           child: Listviewrecomand()),
                     ],
                   ),

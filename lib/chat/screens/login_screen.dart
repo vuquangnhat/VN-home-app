@@ -19,6 +19,7 @@ void main() async {
     home: LoginScreen(),
   ));
 }
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -43,26 +44,100 @@ class _LoginScreenState extends State<LoginScreen> {
           inAsyncCall: HUD,
           child: Form(
             key: _globalKey,
-            child: ListView(
+            child: Stack(
               children: [
                 _getLogo(),
                 _getLoginMsg(context),
-                CustomInputField(
-                  label: 'Email',
-                  hintText: 'Enter your email',
-                  onChanged: (String val) => email = val,
+                Padding(
+                  padding: const EdgeInsets.only(top: 200, left: 25),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 5,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    width: 342,
+                    height: 500,
+                    child: Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 400),
+                          child: Center(
+                              child: Text(
+                            'Đăng Nhập Để Tiếp Tục',
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
+                          )),
+                        ),
+                        Center(
+                          child: Container(
+                            height: 300,
+                            width: 300,
+                            child: ListView(
+                              children: [
+                                CustomInputField(
+                                  label: 'Email',
+                                  hintText: 'Nhập Email Của Bạn',
+                                  onChanged: (String val) => email = val,
+                                ),
+                                CustomInputField(
+                                  label: 'Mật Khẩu',
+                                  hintText: 'Nhập Mật Khẩu Của Bạn',
+                                  obscure: true,
+                                  onChanged: (String val) => password = val,
+                                ),
+                                CustomSubmitButton(
+                                  title: 'Đăng Nhập',
+                                  onTap: () => _onSumbit(context),
+                                ),
+                                _switchToSignUpScreen(context),
+                                Center(
+                                    child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text('Đăng Nhập Với'),
+                                )),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Center(
+                            child: Padding(
+                          padding: const EdgeInsets.only(top: 340),
+                          child: Container(
+                              height: 40,
+                              width: 250,
+                              decoration: BoxDecoration(
+                                  color: Color.fromRGBO(
+                                      51, 108, 219, 1 * 10 / 100)),
+                              child: Center(
+                                  child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                      height: 25,
+                                      child: Image.asset(
+                                        'assets/google_icon.png',
+                                      )),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    'Tiếp Tục Với Google',
+                                    style: TextStyle(fontSize: 12),
+                                  )
+                                ],
+                              ))),
+                        )),
+                      ],
+                    ),
+                  ),
                 ),
-                CustomInputField(
-                  label: 'Password',
-                  hintText: 'Enter your Password',
-                  obscure: true,
-                  onChanged: (String val) => password = val,
-                ),
-                CustomSubmitButton(
-                  title: 'Login',
-                  onTap: () => _onSumbit(context),
-                ),
-                _switchToSignUpScreen(context),
               ],
             ),
           ),
@@ -72,27 +147,47 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _getLogo() {
-    return Image.asset(
-      'assets/logo.jpg',
-      height: MediaQuery.of(context).size.height * 0.35,
+    return Container(
+      height: 280,
+      width: 400,
+      decoration: BoxDecoration(
+          color: Color.fromRGBO(36, 107, 253, 1),
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10))),
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 50),
+        child: Center(
+          child: Text(
+            "Vn Home",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              shadows: [
+                Shadow(
+                  color: Colors.black,
+                  blurRadius: 2,
+                  offset: Offset(1, 1),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 
   Widget _getLoginMsg(BuildContext context) {
     return Container(
-      width: double.infinity,
+      width: 300,
       padding: const EdgeInsets.all(8.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Login",
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          Text(
-            "Please login to your account",
-            style: Theme.of(context).textTheme.bodyMedium,
+            "",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
         ],
       ),
@@ -104,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "Don't have an account? ",
+          "Bạn Chưa Có Tài Khoản? ",
           style: Theme.of(context).textTheme.bodySmall,
         ),
         GestureDetector(
@@ -115,14 +210,12 @@ class _LoginScreenState extends State<LoginScreen> {
             );
           },
           child: Text(
-            "Sign up",
-            style: 
-              const TextStyle(
-                fontSize: 14,
-                color: Colors.purple,
-                fontWeight: FontWeight.bold,
-              ),
-          
+            "Đăng Kí",
+            style: const TextStyle(
+              fontSize: 14,
+              color: Color.fromRGBO(116, 114, 224, 1),
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ],

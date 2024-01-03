@@ -34,7 +34,7 @@ class _ListviewrecomandState extends State<Listviewrecomand> {
 
   Future<void> featch() async {
     QuerySnapshot<Map<String, dynamic>> querySnapshot =
-        await FirebaseFirestore.instance.collection('Post').get();
+        await FirebaseFirestore.instance.collection('Post').where('Thanh Pho',isEqualTo: 'ĐÀ NẴNG').limit(20).get();
 
     setState(() {
       items = querySnapshot.docs
@@ -126,7 +126,7 @@ class _ListviewrecomandState extends State<Listviewrecomand> {
                                       flex: 2,
                                       child: Container(
                                         height: 40,
-                                        width: 100,
+                                        width: 140,
                                         decoration: BoxDecoration(
                                             color: Color.fromRGBO(
                                                 253, 236, 239, 1),

@@ -33,8 +33,12 @@ class _ListviewhorizotalState extends State<Listviewhorizotal> {
   }
 
   Future<void> featch() async {
-    QuerySnapshot<Map<String, dynamic>> querySnapshot =
-        await FirebaseFirestore.instance.collection('Post').get();
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
+        .instance
+        .collection('Post')
+        .orderBy('so lan click', descending: true)
+        .limit(10)
+        .get();
 
     setState(() {
       items = querySnapshot.docs
@@ -92,42 +96,64 @@ class _ListviewhorizotalState extends State<Listviewhorizotal> {
                                 ),
                                 child: Stack(children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 10,top: 12),
-                                    child:  Container(
-                                          height: 180,
-                                          width: 340,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                            image: DecorationImage(
-                                              image:
-                                                  NetworkImage(thisItem['image_0']),
-                                              fit: BoxFit.cover,
-                                            ),
+                                      padding: const EdgeInsets.only(
+                                          left: 10, top: 12),
+                                      child: Container(
+                                        height: 180,
+                                        width: 340,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                                thisItem['image_0']),
+                                            fit: BoxFit.cover,
                                           ),
-                                        )
-                                  ),
+                                        ),
+                                      )),
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         top: 210, left: 10),
                                     child: Expanded(
                                       flex: 2,
-                                      child: Container(
-                                        height: 40,
-                                        width: 130,
-                                        decoration: BoxDecoration(
-                                            color: Color.fromRGBO(
-                                                253, 236, 239, 1),
-                                            borderRadius:
-                                                BorderRadius.circular(20)),
-                                        child: Center(
-                                            child: Text(
-                                          thisItem['LoaiPhong'],
-                                          style: TextStyle(
-                                              color: Color.fromRGBO(
-                                                  252, 150, 163, 1)),
-                                        )),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            height: 40,
+                                            width: 140,
+                                            decoration: BoxDecoration(
+                                                color: Color.fromRGBO(
+                                                    253, 236, 239, 1),
+                                                borderRadius:
+                                                    BorderRadius.circular(20)),
+                                            child: Center(
+                                                child: Text(
+                                              thisItem['LoaiPhong'],
+                                              style: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      252, 150, 163, 1)),
+                                            )),
+                                          ),
+                                          Container(
+                                            height: 40,
+                                            width: 140,
+                                            decoration: BoxDecoration(
+                                                color: Color.fromRGBO(
+                                                    253, 236, 239, 1),
+                                                borderRadius:
+                                                    BorderRadius.circular(20)),
+                                            child: Center(
+                                                child: Text(
+                                              '${thisItem['so lan click']}',
+                                              style: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      252, 150, 163, 1)),
+                                            )),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),

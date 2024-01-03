@@ -37,7 +37,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             key: _globalKey,
             child: ListView(
               children: [
-                _getLogo(),
+                // _getLogo(),
                 _getSignInMsg(context),
                 CustomInputField(
                   label: 'Username',
