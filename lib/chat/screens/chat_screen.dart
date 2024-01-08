@@ -75,7 +75,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   if (!snapShot.hasData) {
                     return Center(
                       child: Text(
-                        'No users to add',
+                        'Không Có Người Dùng',
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     );

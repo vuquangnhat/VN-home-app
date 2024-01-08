@@ -10,18 +10,18 @@ void main() async {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     color: Colors.white,
-    home: Listviewrecomand(),
+    home: Cothebanthich(),
   ));
 }
 
-class Listviewrecomand extends StatefulWidget {
-  const Listviewrecomand({super.key});
+class Cothebanthich extends StatefulWidget {
+  const Cothebanthich({super.key});
 
   @override
-  State<Listviewrecomand> createState() => _ListviewrecomandState();
+  State<Cothebanthich> createState() => _CothebanthichState();
 }
 
-class _ListviewrecomandState extends State<Listviewrecomand> {
+class _CothebanthichState extends State<Cothebanthich> {
   List<Map> _filteredItems = [];
   Color color2 = Colors.red;
   List<Map> items = [];
@@ -64,7 +64,7 @@ class _ListviewrecomandState extends State<Listviewrecomand> {
                     shrinkWrap: true,
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis
-                        .horizontal, // Set the scroll direction to horizontal
+                        .vertical, // Set the scroll direction to horizontal
                     itemCount: _filteredItems.length,
                     itemBuilder: (BuildContext context, int index) {
                       Map thisItem = _filteredItems[index];
@@ -80,7 +80,7 @@ class _ListviewrecomandState extends State<Listviewrecomand> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
-                                height: 300,
+                                height: 420,
                                 width: 360,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
@@ -97,7 +97,7 @@ class _ListviewrecomandState extends State<Listviewrecomand> {
                                 child: Stack(children: [
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 10, top: 12),
+                                        left: 18, top: 12),
                                     child: Container(
                                       height: 180,
                                       width: 340,
@@ -125,7 +125,7 @@ class _ListviewrecomandState extends State<Listviewrecomand> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                        top: 210, left: 10),
+                                        top: 210, left: 10,right: 10),
                                     child: Expanded(
                                       flex: 2,
                                       child: Row(
@@ -239,7 +239,7 @@ class _ListviewrecomandState extends State<Listviewrecomand> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                        top: 350, left: 12),
+                                        top: 350, left: 18),
                                     child: Container(
                                       height: 50,
                                       width: 335,

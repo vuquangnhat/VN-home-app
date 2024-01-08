@@ -24,31 +24,40 @@ class Bookmyroom extends StatefulWidget {
 class _BookmyroomState extends State<Bookmyroom> {
   List<Map> _filteredItems = [];
   List<Map> items = [];
-  List<Map> item_post = [];
+  Map item_post = {};
   List<Map> information_Post = [];
+  List <Map> fulllist = [];
   bool isVisible = true;
   void initState() {
     super.initState();
     featch();
+    setState(() {});
   }
 
   Future<void> featch() async {
-     final FirebaseAuth _auth = FirebaseAuth.instance;
-
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    print('bbbbb: ${FirebaseFirestore
+        .instance
+        .collection('Reservation')
+       .path}');
     QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
         .instance
         .collection('Reservation')
-        .where('Id nguoi dat', isEqualTo: _auth.currentUser!.uid)
+        .where('Id nguoi dang bai', isEqualTo: _auth.currentUser!.uid)
         .get();
 
     items = await querySnapshot.docs
         .map((DocumentSnapshot<Map<String, dynamic>> document) {
       return document.data()!;
     }).toList();
-    _filteredItems = items;
-    print(_filteredItems);
+          _filteredItems =  items;
 
-    String postid = '${_filteredItems[0]['Id phong']}';
+   
+    print( 'aaa: ${_filteredItems}');
+
+    for(int i = 0 ; i < _filteredItems.length ; i++){
+    String postid = '${_filteredItems[i]['Id phong']}';
+    print('$postid');
     QuerySnapshot<Map<String, dynamic>> querySnapshot_post =
         await FirebaseFirestore.instance
             .collection('Post')
@@ -57,18 +66,25 @@ class _BookmyroomState extends State<Bookmyroom> {
     item_post = await querySnapshot_post.docs
         .map((DocumentSnapshot<Map<String, dynamic>> document) {
       return document.data()!;
-    }).toList();
-    information_Post = item_post;
-    print('thong tin Post $information_Post');
-    setState(() {
-      
+    }).first;
+    information_Post.add(item_post);
+    }
+    
+  setState(() {
     });
+    print('thong tin Post $information_Post');
+  
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(children: [
+        print('do dai ${ _filteredItems.length}');
+    return 
+  
+    Scaffold(
+      body: 
+      (_filteredItems.length == 0)? Center(child: Text('Chưa có phòng nào được đặt'),):
+      Stack(children: [
         Center(
           child: Padding(
             padding: const EdgeInsets.only(top: 10),
@@ -81,18 +97,20 @@ class _BookmyroomState extends State<Bookmyroom> {
                     physics: BouncingScrollPhysics(),
                     scrollDirection:
                         Axis.vertical, // Set the scroll direction to vertical
-                    itemCount: _filteredItems.length,
+                    itemCount: items.length,
                     itemBuilder: (BuildContext context, int index) {
+                 
                       Map thisItem = information_Post[index];
                       Map user_reservation = _filteredItems[index];
+                      print('ccc $index');
 
                       if (thisItem['image_0'] != null &&
                           thisItem['image_0'] is String) {
                         return GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) =>
-                                      ItemDetails(user_reservation['Id phong'])));
+                                  builder: (context) => ItemDetails(
+                                      user_reservation['Id phong'])));
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -100,7 +118,11 @@ class _BookmyroomState extends State<Bookmyroom> {
                                 visible: isVisible,
                                 child: Stack(
                                   children: [
-                                    Text('Các Phòng Đã Được Đặt ',style: TextStyle(fontWeight: FontWeight.bold),),
+                                    Text(
+                                      'Các Phòng Đã Được Đặt ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                     Padding(
                                       padding: const EdgeInsets.only(top: 25),
                                       child: Card(
@@ -108,8 +130,8 @@ class _BookmyroomState extends State<Bookmyroom> {
                                           height: 570,
                                           width: 360,
                                           decoration: BoxDecoration(
-                                              color:
-                                                  Color.fromARGB(255, 255, 255, 255),
+                                              color: Color.fromARGB(
+                                                  255, 255, 255, 255),
                                               borderRadius:
                                                   BorderRadius.circular(30)),
                                           child: Stack(children: [
@@ -120,12 +142,14 @@ class _BookmyroomState extends State<Bookmyroom> {
                                                 height: 200,
                                                 width: 340,
                                                 decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.all(
-                                                      Radius.circular(20)),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(20)),
                                                   boxShadow: [
                                                     BoxShadow(
-                                                      color: Colors.black.withOpacity(
-                                                          0.3), // Màu sắc và độ mờ của đổ bóng
+                                                      color: Colors.black
+                                                          .withOpacity(
+                                                              0.3), // Màu sắc và độ mờ của đổ bóng
                                                       spreadRadius:
                                                           2, // Kích thước đổ bóng
                                                       blurRadius:
@@ -153,7 +177,8 @@ class _BookmyroomState extends State<Bookmyroom> {
                                                       color: Color.fromRGBO(
                                                           253, 236, 239, 1),
                                                       borderRadius:
-                                                          BorderRadius.circular(20)),
+                                                          BorderRadius.circular(
+                                                              20)),
                                                   child: Center(
                                                       child: Text(
                                                     thisItem['LoaiPhong'],
@@ -170,9 +195,11 @@ class _BookmyroomState extends State<Bookmyroom> {
                                               child: Row(
                                                 children: [
                                                   Text(
-                                                    thisItem['tieu de bai dang'],
+                                                    thisItem[
+                                                        'tieu de bai dang'],
                                                     style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                         fontSize: 15,
                                                         color: Colors.black),
                                                   ),
@@ -192,7 +219,8 @@ class _BookmyroomState extends State<Bookmyroom> {
                                                   Text(
                                                     thisItem['Thanh Pho'],
                                                     style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                         fontSize: 12,
                                                         color: Colors.grey),
                                                   ),
@@ -206,31 +234,39 @@ class _BookmyroomState extends State<Bookmyroom> {
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsets.only(top: 5),
+                                                        const EdgeInsets.only(
+                                                            top: 5),
                                                     child: Text('VND ',
                                                         style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: 12,
-                                                            color: Color.fromRGBO(
-                                                                104, 170, 251, 1))),
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    104,
+                                                                    170,
+                                                                    251,
+                                                                    1))),
                                                   ),
                                                   Text(
                                                     thisItem['Giachothue'],
                                                     style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                         fontSize: 17,
                                                         color: Colors.black),
                                                   ),
                                                   Padding(
-                                                    padding: const EdgeInsets.only(
-                                                        top: 5, left: 2),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 5, left: 2),
                                                     child: Text('Triệu/Tháng',
                                                         style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: 12,
-                                                            color: Colors.grey)),
+                                                            color:
+                                                                Colors.grey)),
                                                   ),
                                                 ],
                                               ),
@@ -243,12 +279,14 @@ class _BookmyroomState extends State<Bookmyroom> {
                                                 width: 335,
                                                 decoration: BoxDecoration(
                                                     borderRadius:
-                                                        BorderRadius.circular(30)),
+                                                        BorderRadius.circular(
+                                                            30)),
                                                 child: Text(
                                                   'Thông Tin Người Đặt Phòng',
                                                   style: TextStyle(
                                                       fontSize: 18,
-                                                      fontWeight: FontWeight.bold),
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                 ),
                                               ),
                                             ),
@@ -260,7 +298,8 @@ class _BookmyroomState extends State<Bookmyroom> {
                                                 width: 335,
                                                 decoration: BoxDecoration(
                                                     borderRadius:
-                                                        BorderRadius.circular(30)),
+                                                        BorderRadius.circular(
+                                                            30)),
                                                 child: Column(
                                                   children: [
                                                     Text(
@@ -276,7 +315,8 @@ class _BookmyroomState extends State<Bookmyroom> {
                                                         'Nơi Hẹn Gặp : ${user_reservation['Dia chi'].toUpperCase()}',
                                                         style: TextStyle(
                                                             fontWeight:
-                                                                FontWeight.bold)),
+                                                                FontWeight
+                                                                    .bold)),
                                                     SizedBox(
                                                       height: 10,
                                                     ),
@@ -284,7 +324,8 @@ class _BookmyroomState extends State<Bookmyroom> {
                                                         'Ngày Tới Xem Phòng : ${user_reservation['Ngay dat hen']}',
                                                         style: TextStyle(
                                                             fontWeight:
-                                                                FontWeight.bold)),
+                                                                FontWeight
+                                                                    .bold)),
                                                     SizedBox(
                                                       height: 10,
                                                     ),
@@ -292,26 +333,30 @@ class _BookmyroomState extends State<Bookmyroom> {
                                                       onPressed: () {
                                                         showDialog(
                                                           context: context,
-                                                          builder:
-                                                              (BuildContext context) {
+                                                          builder: (BuildContext
+                                                              context) {
                                                             return AlertDialog(
                                                               content: Column(
                                                                 mainAxisSize:
-                                                                    MainAxisSize.min,
+                                                                    MainAxisSize
+                                                                        .min,
                                                                 children: [
                                                                   Icon(
                                                                     Icons
                                                                         .check_circle,
-                                                                    color:
-                                                                        Colors.green,
+                                                                    color: Colors
+                                                                        .green,
                                                                     size: 48,
                                                                   ),
                                                                   SizedBox(
-                                                                      height: 16),
+                                                                      height:
+                                                                          16),
                                                                   Text(
                                                                     'Đã xác nhận gặp mặt',
-                                                                    style: TextStyle(
-                                                                      fontSize: 18,
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          18,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .bold,
@@ -321,14 +366,21 @@ class _BookmyroomState extends State<Bookmyroom> {
                                                               ),
                                                               actions: [
                                                                 Center(
-                                                                  child: ElevatedButton(
-                                                                    onPressed: () {
-                                                                      Navigator.of(context).pop();
-                                                                      setState(() {
-                                                                        isVisible = false;
+                                                                  child:
+                                                                      ElevatedButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
+                                                                      setState(
+                                                                          () {
+                                                                        isVisible =
+                                                                            false;
                                                                       }); // Đóng dialog khi nút được nhấn
                                                                     },
-                                                                    child: Text('OK'),
+                                                                    child: Text(
+                                                                        'OK'),
                                                                   ),
                                                                 ),
                                                               ],
@@ -336,10 +388,12 @@ class _BookmyroomState extends State<Bookmyroom> {
                                                           },
                                                         );
                                                       },
-                                                      child:
-                                                          Text('Xác Nhận Đã Gặp Mặt'),
-                                                      style: ElevatedButton.styleFrom(
-                                                        shape: RoundedRectangleBorder(
+                                                      child: Text(
+                                                          'Xác Nhận Đã Gặp Mặt'),
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        shape:
+                                                            RoundedRectangleBorder(
                                                           borderRadius:
                                                               BorderRadius.circular(
                                                                   10.0), // Đặt bán kính bo tròn
@@ -361,7 +415,7 @@ class _BookmyroomState extends State<Bookmyroom> {
                       } else {
                         return ListTile(
                           title: Text(
-                            "No Image Available",
+                            "Chưa có phòng nào được đặt",
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,

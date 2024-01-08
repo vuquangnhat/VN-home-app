@@ -236,8 +236,6 @@ class _ConformScrennState extends State<ConformScrenn> {
                                   'Dien thoai': sdt.text,
                                   'tieu de bai dang': titlepost.text,
                                   'noi dung mo ta': content.text,
-                                  'Gio mo cua': timeopen.text,
-                                  'Gio dong cua': timeclose.text,
                                   'user id': '${_auth.currentUser?.uid}',
                                 })
                                 .then((value) => print(

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,6 +26,7 @@ class _thongtinScreenState extends State<thongtinScreen> {
   String documentsend = DateTime.now().microsecond.toString();
   String typeofhome = '';
   String? gioitinh;
+  String tinhtrangphong = 'Còn Phòng';
   final TextEditingController soluongphongctl = TextEditingController();
   final TextEditingController SucChuactl = TextEditingController();
   final TextEditingController dientichctl = TextEditingController();
@@ -218,14 +221,19 @@ class _thongtinScreenState extends State<thongtinScreen> {
                                 hintStyle: TextStyle(color: Colors.grey)),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Vui Lòng Nhập';
+                                return 'Vui lòng nhập giá trị';
                               }
-                              if (value.contains(',')) {
-                                return 'Số lượng phòng không được là số thập phân';
+                              if (value.contains(',') ||
+                                  value.contains('-') ||
+                                  value.contains('.')) {
+                                return 'Sai định dạng';
                               }
-                              // for(int i =0 ; i< value.length; i++) {
-
-                              // }
+                              int numericValue = int.parse(value);
+                              if (numericValue == null ||
+                                  numericValue < 1 ||
+                                  numericValue > 15) {
+                                return 'Giá trị không hợp lệ, phải từ 1 đến 15';
+                              }
                               return null;
                             },
                           ),
@@ -268,7 +276,11 @@ class _thongtinScreenState extends State<thongtinScreen> {
                               if (value == null || value.isEmpty) {
                                 return 'Vui Lòng Nhập';
                               }
-                              return null;
+                              if (value.contains(',') ||
+                                  value.contains('-') ||
+                                  value.contains('.')) {
+                                return 'Sai Định Dạng';
+                              }
                             },
                           ),
                         ),
@@ -360,18 +372,18 @@ class _thongtinScreenState extends State<thongtinScreen> {
                                     color: Colors.grey, fontSize: 14)),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Vui Lòng Nhập';
+                                return 'Vui lòng nhập diện tích';
                               }
-                              // } else if (value.contains(',')) {
-                              //   Fluttertoast.showToast(
-                              //       msg: "Diện tích phòng không ",
-                              //       toastLength: Toast.LENGTH_SHORT,
-                              //       gravity: ToastGravity.CENTER,
-                              //       timeInSecForIosWeb: 1,
-                              //       backgroundColor: Colors.red,
-                              //       textColor: Colors.white,
-                              //       fontSize: 16.0);
-                              // }
+                              if (!RegExp(r'^\d+(\.\d+)?$').hasMatch(value)) {
+                                return 'Chỉ được nhập số và dấu chấm';
+                              }
+                              double dienTich = double.parse(value);
+                              if (dienTich == null) {
+                                return 'Giá trị không hợp lệ';
+                              }
+                              if (dienTich > 100) {
+                                return 'Diện tích không được lớn hơn 100';
+                              }
                               return null;
                             },
                           ),
@@ -428,12 +440,23 @@ class _thongtinScreenState extends State<thongtinScreen> {
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
                                 border: UnderlineInputBorder(),
-                                hintText: 'Nhập giá cho thuê (VND/PHÒNG)',
+                                hintText:
+                                    'Nhập giá cho thuê (VND/PHÒNG) (Triệu)',
                                 hintStyle: TextStyle(
                                     color: Colors.grey, fontSize: 14)),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Vui Lòng Nhập';
+                                return 'Vui lòng nhập giá thuê';
+                              }
+                              if (!RegExp(r'^\d+(\.\d+)?$').hasMatch(value)) {
+                                return 'Chỉ được nhập số và dấu chấm';
+                              }
+                              double giaThue = double.parse(value);
+                              if (giaThue == null) {
+                                return 'Giá trị không hợp lệ';
+                              }
+                              if (giaThue > 10) {
+                                return 'Giá thuê không được vượt quá 10 triệu';
                               }
                               return null;
                             },
@@ -475,12 +498,22 @@ class _thongtinScreenState extends State<thongtinScreen> {
                                     keyboardType: TextInputType.number,
                                     decoration: const InputDecoration(
                                         border: UnderlineInputBorder(),
-                                        hintText: 'Nhập số tiền',
+                                        hintText: 'Nhập số tiền (k/số)',
                                         hintStyle: TextStyle(
                                             color: Colors.grey, fontSize: 14)),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Vui Lòng Nhập';
+                                        return 'Vui lòng nhập giá trị';
+                                      }
+                                      if (!RegExp(r'^[3-5](\.\d+)?$')
+                                          .hasMatch(value)) {
+                                        return 'Chỉ được nhập số từ 3 đến 5 và số thập phân';
+                                      }
+                                      double numericValue = double.parse(value);
+                                      if (numericValue == null ||
+                                          numericValue < 3 ||
+                                          numericValue > 5) {
+                                        return 'Giá trị không hợp lệ, phải từ 3 đến 5';
                                       }
                                       return null;
                                     },
@@ -526,12 +559,22 @@ class _thongtinScreenState extends State<thongtinScreen> {
                                     keyboardType: TextInputType.number,
                                     decoration: const InputDecoration(
                                         border: UnderlineInputBorder(),
-                                        hintText: 'Nhập số tiền',
+                                        hintText: 'Nhập số tiền (k/số)',
                                         hintStyle: TextStyle(
                                             color: Colors.grey, fontSize: 14)),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Vui Lòng Nhập';
+                                        return 'Vui lòng nhập giá trị';
+                                      }
+                                      if (!RegExp(r'^[3-5](\.\d+)?$')
+                                          .hasMatch(value)) {
+                                        return 'Chỉ được nhập số từ 3 đến 5 và số thập phân';
+                                      }
+                                      double numericValue = double.parse(value);
+                                      if (numericValue == null ||
+                                          numericValue < 3 ||
+                                          numericValue > 5) {
+                                        return 'Giá trị không hợp lệ, phải từ 3 đến 5';
                                       }
                                       return null;
                                     },
@@ -605,8 +648,8 @@ class _thongtinScreenState extends State<thongtinScreen> {
                                             'Tiendien': tiendienctl.text,
                                             'tiennuoc': tiennuocctl.text,
                                             'Cho de xe': chodexe,
-                                            'so lan click':
-                                                solanclik,
+                                            'so lan click': solanclik,
+                                            'tinh trang phong': tinhtrangphong
                                           })
                                           .then(
                                               (value) => print("Success Added"))

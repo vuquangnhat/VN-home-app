@@ -31,7 +31,7 @@ class _Seach_FriendState extends State<Seach_Friend> {
   }
   Future<void> featch() async {
     QuerySnapshot<Map<String, dynamic>> querySnapshot =
-        await FirebaseFirestore.instance.collection('Users').get();
+        await FirebaseFirestore.instance.collection('Users').where('email', isNotEqualTo: FirebaseAuth.instance.currentUser!.email!,).get();
 
       items = await querySnapshot.docs
           .map((DocumentSnapshot<Map<String, dynamic>> document) {
@@ -88,7 +88,7 @@ class _Seach_FriendState extends State<Seach_Friend> {
                           borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide.none,
                         ),
-                        hintText: "Search for Items",
+                        hintText: "Tìm Kiếm",
                         hintStyle: TextStyle(
                             color: const Color(0xffb2b2b2),
                             fontSize: 20,

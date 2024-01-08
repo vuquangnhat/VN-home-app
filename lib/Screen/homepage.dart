@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:test_thuetro/Screen/accountpage.dart';
 import 'package:test_thuetro/Screen/thongtin.dart';
 
 import 'package:test_thuetro/component/listviewmost.dart';
@@ -59,29 +60,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           Padding(
             padding: const EdgeInsets.only(top: 65.0, left: 10),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             
               children: [
                 Text(
-                  'Chào, ',
+                  'Xin, ',
                   style: TextStyle(
                       fontSize: 18, color: Color.fromARGB(255, 0, 0, 0)),
                 ),
                 Text(
-                  'Nhật',
+                  'Chào',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: const Color.fromARGB(255, 0, 0, 0)),
                 ),
-                SizedBox(width: 220),
-                Container(
-                    height: 40,
-                    width: 50,
-                    child: CircleAvatar(
-                      radius: 10,
-                      child: Text('N', style: TextStyle(color: Colors.white)),
-                      backgroundColor: Colors.orange,
-                    ))
+            
               ],
             ),
           ),
@@ -117,15 +110,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Tab(
-                      child: Text(
-                        'Xu Hướng',
-                        style: TextStyle(
-                            fontSize: 11,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
+                    // Tab(
+                    //   child: Text(
+                    //     'Xu Hướng',
+                    //     style: TextStyle(
+                    //         fontSize: 11,
+                    //         color: Colors.black,
+                    //         fontWeight: FontWeight.bold),
+                    //   ),
+                    // ),
                     Tab(
                       child: Text(
                         'Đề Xuất Cho Bạn',
@@ -564,7 +557,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                         left: 0, top: 230),
                                     child: GestureDetector(
                                       onTap: () {
-                                        print('object2');
+                                            Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AccountScreen()),
+                                        );
                                       },
                                       child: Flexible(
                                         child: Container(

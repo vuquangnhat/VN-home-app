@@ -61,14 +61,16 @@ class _ListviewSearchState extends State<ListviewSearch>
               (item['LoaiPhong']
                       .toLowerCase()
                       .contains('${widget.loaiphong}'.toLowerCase()) ??
-                  true) &&
+                  true)
+                   &&
               (widget.ds_tienich.isNotEmpty
                   ? item['tienich_list'].any((item2) => widget.ds_tienich
                       .any((element) => element.toString() == item2))
                   : true) &&
               (double.parse(item['Giachothue']) <= widget.tienthue) &&
               (int.parse(item['SucChua']) <= widget.songuoi) &&
-              (item['GioiTinh'] == widget.gioitinh))
+              (item['GioiTinh'] == widget.gioitinh)
+              )
           .toList();
 
       _filteredItems.forEach(
@@ -137,7 +139,7 @@ class _ListviewSearchState extends State<ListviewSearch>
                               borderRadius: BorderRadius.circular(20),
                               borderSide: BorderSide.none,
                             ),
-                            hintText: "Tìm theo tiêu đề, tên đường",
+                            hintText: "Tìm theo thành phố",
                             hintStyle: TextStyle(
                                 color: const Color(0xffb2b2b2),
                                 fontSize: 14,
@@ -232,21 +234,45 @@ class _ListviewSearchState extends State<ListviewSearch>
                                           top: 220, left: 10),
                                       child: Expanded(
                                         flex: 2,
-                                        child: Container(
-                                          height: 40,
-                                          width: 100,
-                                          decoration: BoxDecoration(
-                                              color: Color.fromRGBO(
-                                                  253, 236, 239, 1),
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          child: Center(
-                                              child: Text(
-                                            thisItem['LoaiPhong'],
-                                            style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    252, 150, 163, 1)),
-                                          )),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              height: 40,
+                                              width: 140,
+                                              decoration: BoxDecoration(
+                                                  color: Color.fromRGBO(
+                                                      253, 236, 239, 1),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20)),
+                                              child: Center(
+                                                  child: Text(
+                                                thisItem['LoaiPhong'],
+                                                style: TextStyle(
+                                                    color: Color.fromRGBO(
+                                                        252, 150, 163, 1)),
+                                              )),
+                                            ),
+                                            Container(
+                                              height: 40,
+                                              width: 140,
+                                              decoration: BoxDecoration(
+                                                  color: Color.fromRGBO(
+                                                      253, 236, 239, 1),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20)),
+                                              child: Center(
+                                                  child: Text(
+                                                '${thisItem['tinh trang phong']}',
+                                                style: TextStyle(
+                                                    color: Color.fromRGBO(
+                                                        252, 150, 163, 1)),
+                                              )),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),

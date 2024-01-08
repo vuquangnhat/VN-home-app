@@ -40,29 +40,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 // _getLogo(),
                 _getSignInMsg(context),
                 CustomInputField(
-                  label: 'Username',
+                  label: 'Họ và Tên',
                   hintText: 'Enter your username',
                   onChanged: (String val) => username = val,
                 ),
                 CustomInputField(
                   label: 'Email',
-                  hintText: 'Enter your email',
+                  hintText: 'Nhập email',
                   onChanged: (String val) => email = val,
                 ),
                 CustomInputField(
-                  label: 'Password',
-                  hintText: 'Enter your Password',
+                  label: 'Mật Khẩu',
+                  hintText: 'Nhập Password',
                   obscure: true,
                   onChanged: (String val) => password = val,
                 ),
                 CustomSubmitButton(
-                  title: 'Sign Up',
-                  onTap: () {dangki(context);
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Example()),
-                      );
+                  title: 'Đăng Kí',
+                  onTap: ()async { dangki(context);
                 } ,
                 ),
                 _switchToSignUpScreen(context),
@@ -86,15 +81,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(8.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            "Sign Up",
+            "Đăng Kí",
             style: Theme.of(context).textTheme.titleLarge,
           ),
+          SizedBox(height: 10,),
           Text(
-            "Create a new account",
+            "Tạo Tài Khoản",
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ],
@@ -107,7 +103,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "Already have an account? ",
+          "Tôi đã có tài khoản? ",
           style: Theme.of(context).textTheme.bodySmall,
         ),
         GestureDetector(
@@ -119,10 +115,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       );
           },
           child: Text(
-            "Login",
+            "Đăng Nhập",
             style: const TextStyle(
                 fontSize: 14,
-                color: Colors.purple,
+                color: Colors.blue,
                 fontWeight: FontWeight.bold,
              
             ),
@@ -167,11 +163,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool _checkInputFields(BuildContext context) {
     String? msg;
     if (email == null) {
-      msg = "You should enter a valid email";
+      msg = "Vui Lòng Nhập Email";
     } else if (password == null) {
-      msg = "You should enter a valid password";
+      msg = "Vui Lòng Nhập Password";
     } else if (username == null) {
-      msg = "You should enter a valid username";
+      msg = "Vui Lòng Nhập UserName";
     }
 
     if (msg != null) {

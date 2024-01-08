@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:test_thuetro/Screen/reservationpage.dart';
+import 'package:test_thuetro/chat/screens/login_screen.dart';
 
 import 'bookmyroom.dart';
 
@@ -99,7 +100,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10, top: 20,right: 10),
+                  padding: const EdgeInsets.only(left: 10, top: 20, right: 10),
                   child: Container(
                     height: 60,
                     width: 380,
@@ -117,7 +118,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       ],
                     ),
                     child: Row(
-                       mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
                           Icons.person,
@@ -148,75 +149,87 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10, top: 20,right: 10),
+                  padding: const EdgeInsets.only(left: 10, top: 20, right: 10),
                   child: GestureDetector(
                     onTap: () {
-                       Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => UsePaypal(
-                            sandboxMode: true,
-                            clientId:
-                                "AW1TdvpSGbIM5iP4HJNI5TyTmwpY9Gv9dYw8_8yW5lYIbCqf326vrkrp0ce9TAqjEGMHiV3OqJM_aRT0",
-                            secretKey:
-                                "EHHtTDjnmTZATYBPiGzZC_AZUfMpMAzj2VZUeqlFUrRJA_C0pQNCxDccB5qoRQSEdcOnnKQhycuOWdP9",
-                            returnURL: "https://samplesite.com/return",
-                            cancelURL: "https://samplesite.com/cancel",
-                            transactions: const [
-                              {
-                                "amount": {
-                                  "total": '10.12',
-                                  "currency": "USD",
-                                  "details": {
-                                    "subtotal": '10.12',
-                                    "shipping": '0',
-                                    "shipping_discount": 0
-                                  }
-                                },
-                                "description":
-                                    "The payment transaction description.",
-                                // "payment_options": {
-                                //   "allowed_payment_method":
-                                //       "INSTANT_FUNDING_SOURCE"
-                                // },
-                                "item_list": {
-                                  "items": [
-                                    {
-                                      "name": "A demo product",
-                                      "quantity": 1,
-                                      "price": '10.12',
-                                      "currency": "USD"
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => UsePaypal(
+                              sandboxMode: true,
+                              clientId:
+                                  "AW1TdvpSGbIM5iP4HJNI5TyTmwpY9Gv9dYw8_8yW5lYIbCqf326vrkrp0ce9TAqjEGMHiV3OqJM_aRT0",
+                              secretKey:
+                                  "EHHtTDjnmTZATYBPiGzZC_AZUfMpMAzj2VZUeqlFUrRJA_C0pQNCxDccB5qoRQSEdcOnnKQhycuOWdP9",
+                              returnURL: "https://samplesite.com/return",
+                              cancelURL: "https://samplesite.com/cancel",
+                              transactions: const [
+                                {
+                                  "amount": {
+                                    "total": '10.12',
+                                    "currency": "USD",
+                                    "details": {
+                                      "subtotal": '10.12',
+                                      "shipping": '0',
+                                      "shipping_discount": 0
                                     }
-                                  ],
-
-                                  // shipping address is not required though
-                                  "shipping_address": {
-                                    "recipient_name": "Jane Foster",
-                                    "line1": "Travis County",
-                                    "line2": "",
-                                    "city": "Austin",
-                                    "country_code": "US",
-                                    "postal_code": "73301",
-                                    "phone": "+00000000",
-                                    "state": "Texas"
                                   },
-                                }
-                              }
-                            ],
-                            note: "Contact us for any questions on your order.",
-                            onSuccess: (Map params) async {
-                              print("onSuccess: $params");
-                              print('aaa: ${params['paymentId']}');
-                              
+                                  "description":
+                                      "The payment transaction description.",
+                                  // "payment_options": {
+                                  //   "allowed_payment_method":
+                                  //       "INSTANT_FUNDING_SOURCE"
+                                  // },
+                                  "item_list": {
+                                    "items": [
+                                      {
+                                        "name": "A demo product",
+                                        "quantity": 1,
+                                        "price": '10.12',
+                                        "currency": "USD"
+                                      }
+                                    ],
 
-                            },
-                            onError: (error) {
-                              print("onError: $error");
-                            },
-                            onCancel: (params) {
-                              print('cancelled: $params');
-                            }),
-                      ),
-                    );
+                                    // shipping address is not required though
+                                    "shipping_address": {
+                                      "recipient_name": "Jane Foster",
+                                      "line1": "Travis County",
+                                      "line2": "",
+                                      "city": "Austin",
+                                      "country_code": "US",
+                                      "postal_code": "73301",
+                                      "phone": "+00000000",
+                                      "state": "Texas"
+                                    },
+                                  }
+                                }
+                              ],
+                              note:
+                                  "Contact us for any questions on your order.",
+                              onSuccess: (Map params) async {
+                                print("onSuccess: $params");
+                                print('aaa: ${params['paymentId']}');
+                                AlertDialog(
+  title: Text('Chuyển tiền thành công'),
+  content: Text('Giao dịch chuyển tiền đã được thực hiện thành công.'),
+  actions: [
+    TextButton(
+      onPressed: () {
+        // Xử lý sự kiện khi người dùng nhấn nút Đóng
+        Navigator.pop(context);
+      },
+      child: Text('Đóng'),
+    ),
+  ],
+);
+                              },
+                              onError: (error) {
+                                print("onError: $error");
+                              },
+                              onCancel: (params) {
+                                print('cancelled: $params');
+                              }),
+                        ),
+                      );
                     },
                     child: Container(
                       height: 60,
@@ -235,7 +248,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         ],
                       ),
                       child: Row(
-                         mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
                             Icons.payments,
@@ -267,14 +280,13 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10, top: 20,right: 10),
+                  padding: const EdgeInsets.only(left: 10, top: 20, right: 10),
                   child: GestureDetector(
                     onTap: () {
-                             Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Bookmyroom()),
-                            );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Bookmyroom()),
+                      );
                     },
                     child: Container(
                       height: 60,
@@ -325,14 +337,14 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10, top: 20,right: 10),
+                  padding: const EdgeInsets.only(left: 10, top: 20, right: 10),
                   child: GestureDetector(
                     onTap: () {
                       Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ReservationPage()),
-                            );
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ReservationPage()),
+                      );
                     },
                     child: Container(
                       height: 60,
@@ -383,7 +395,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10, top: 20,right: 10),
+                  padding: const EdgeInsets.only(left: 10, top: 20, right: 10),
                   child: Container(
                     height: 60,
                     width: 380,
@@ -400,34 +412,46 @@ class _AccountScreenState extends State<AccountScreen> {
                         ),
                       ],
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.logout,
-                          size: 40,
-                          color: Colors.blue,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Text(
-                            'Thoát',
-                            style: TextStyle(
-                                fontSize: 17, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5, left: 215),
-                          child: Icon(
-                            Icons.navigate_next_outlined,
+                    child: GestureDetector(
+                      onTap: () async {
+                        await FirebaseAuth.instance
+                            .signOut()
+                            .whenComplete(() => Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginScreen()),
+                                  (Route<dynamic> route) => false,
+                                ));
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.logout,
                             size: 40,
                             color: Colors.blue,
                           ),
-                        )
-                      ],
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Text(
+                              'Thoát',
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5, left: 215),
+                            child: Icon(
+                              Icons.navigate_next_outlined,
+                              size: 40,
+                              color: Colors.blue,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 )

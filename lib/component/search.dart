@@ -44,8 +44,8 @@ class _SearchtitleState extends State<Searchtitle>
     setState(() {
       _filteredItems = items
           .where((item) =>
-              item['tieu de bai dang'] != null &&
-              item['tieu de bai dang']
+              item['Thanh Pho'] != null &&
+              item['Thanh Pho']
                   .toLowerCase()
                   .contains(value.toLowerCase()))
           .toList();
@@ -90,7 +90,7 @@ class _SearchtitleState extends State<Searchtitle>
                                 borderRadius: BorderRadius.circular(20),
                                 borderSide: BorderSide.none,
                               ),
-                              hintText: "Tìm theo tiêu đề, tên đường",
+                              hintText: "Tìm theo Thành Phố",
                               hintStyle: TextStyle(
                                   color: const Color(0xffb2b2b2),
                                   fontSize: 14,
@@ -188,29 +188,51 @@ class _SearchtitleState extends State<Searchtitle>
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 220, left: 10),
-                                      child: Expanded(
-                                        flex: 2,
-                                        child: Container(
-                                          height: 40,
-                                          width: 140,
-                                          decoration: BoxDecoration(
-                                              color: Color.fromRGBO(
-                                                  253, 236, 239, 1),
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          child: Center(
-                                              child: Text(
-                                            thisItem['LoaiPhong'],
-                                            style: TextStyle(
+                                       Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 220, left: 10),
+                                    child: Expanded(
+                                      flex: 2,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            height: 40,
+                                            width: 140,
+                                            decoration: BoxDecoration(
                                                 color: Color.fromRGBO(
-                                                    252, 150, 163, 1)),
-                                          )),
-                                        ),
+                                                    253, 236, 239, 1),
+                                                borderRadius:
+                                                    BorderRadius.circular(20)),
+                                            child: Center(
+                                                child: Text(
+                                              thisItem['LoaiPhong'],
+                                              style: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      252, 150, 163, 1)),
+                                            )),
+                                          ),
+                                          Container(
+                                            height: 40,
+                                            width: 140,
+                                            decoration: BoxDecoration(
+                                                color: Color.fromRGBO(
+                                                    253, 236, 239, 1),
+                                                borderRadius:
+                                                    BorderRadius.circular(20)),
+                                            child: Center(
+                                                child: Text(
+                                              '${thisItem['tinh trang phong']}',
+                                              style: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      252, 150, 163, 1)),
+                                            )),
+                                          ),
+                                        ],
                                       ),
                                     ),
+                                  ),
                                     Padding(
                                       padding: const EdgeInsets.only(
                                           top: 270, left: 12),

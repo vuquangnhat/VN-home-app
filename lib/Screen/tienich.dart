@@ -56,6 +56,7 @@ class _TienichState extends State<Tienich> {
   List<String> tienich_list = [];
   final ImagePicker imgpicker = ImagePicker();
   late Uint8List haha;
+  List<String> imageUrlList = [];
   int dem = 0; // dung de thoat khoi vong lap
   @override
   Widget build(BuildContext context) {
@@ -138,7 +139,9 @@ class _TienichState extends State<Tienich> {
                       } else {
                         print('khong co tam anh nao duoc chon');
                       }
-                      for (int i = 0; i < imageUrls.length; i++) {
+
+// Thêm chỉ một tấm ảnh vào imageUrls
+                      if (haha != null) {
                         //Get a reference to storage root
                         Reference referenceRoot =
                             FirebaseStorage.instance.ref();
@@ -154,25 +157,23 @@ class _TienichState extends State<Tienich> {
                         //lay URL
                         imageUrl =
                             await referenceImageToUpload.getDownloadURL();
+
                         //day du lieu URL len cloud fire stored
                         Map<String, String> dataToSend = {
-                          'image_$i': imageUrl,
+                          'image_0': imageUrl,
                         };
                         _reference.doc(widget.documentsend3).update(dataToSend);
                         //
-                        List<String> imageUrlList = [];
                         imageUrlList.add(imageUrl);
 
-                        // Update Firestore with the list of image URLs
+                        // Update Firestore with the image URL
                         Map<String, dynamic> dataToSend2 = {
                           'imageUrls': FieldValue.arrayUnion(imageUrlList),
                         };
-
                         _reference
                             .doc(widget.documentsend3)
                             .update(dataToSend2);
-                        print('them thanh cong ');
-                        //Handle errors/success
+                        print('Thêm thành công');
                       }
                       // them vao kieu mang
                       // if (file != null) {
